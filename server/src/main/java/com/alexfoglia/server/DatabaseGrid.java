@@ -30,7 +30,11 @@ public class DatabaseGrid {
 		String[] i_j= node.split("_");
 		int i=Integer.parseInt(i_j[0]);
 		int j=Integer.parseInt(i_j[1]);
-		return matrix[i][j]>0;
+		try {
+			return matrix[i][j]>0;
+		}catch(ArrayIndexOutOfBoundsException e) {
+			return false;
+		}
 	}
 
 }

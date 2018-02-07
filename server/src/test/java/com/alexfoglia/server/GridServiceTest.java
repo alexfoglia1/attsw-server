@@ -116,4 +116,17 @@ public class GridServiceTest {
 		List<String> path=serv.getShortestPath("0_0", "0_0", "test_id");
 		assertEquals(Arrays.asList("0_0"),path);
 	}
+	@Test
+	public void testGetShortestPathCorrect() {
+		int[][]matrix=new int[][] {
+				{1,0,1},
+				{1,1,1},
+				{1,1,1}
+		};
+		List<String> expectedPath=Arrays.asList("0_0","1_0","1_1","1_2","0_2");
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(3,matrix));
+		List<String> actualPath=serv.getShortestPath("0_0", "0_2", "test_id");
+		assertEquals(expectedPath,actualPath);
+		verify(repo,times(1)).findOne("test_id");
+	}
 }
