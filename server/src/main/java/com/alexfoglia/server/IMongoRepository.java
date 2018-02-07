@@ -1,5 +1,7 @@
 package com.alexfoglia.server;
 
-public interface IMongoRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface IMongoRepository extends MongoRepository<DatabaseGrid,String> {
 
 }
