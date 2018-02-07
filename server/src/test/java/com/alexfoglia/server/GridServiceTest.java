@@ -1,6 +1,10 @@
 package com.alexfoglia.server;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -13,8 +17,12 @@ public class GridServiceTest {
 	@InjectMocks
 	private IGridService serv;
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testFindOneByIdWhenExisting() {
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
+		DatabaseGrid found=serv.findOneById("test_id");
+		verify(repo,times(1)).findOne("test_id");
+		assertEquals(1,found.getN());
+		assertArrayEquals(new int[][] {{1}},found.getMatrix());
 	}
 
 }
