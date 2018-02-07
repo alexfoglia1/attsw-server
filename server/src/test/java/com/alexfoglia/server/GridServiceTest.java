@@ -7,15 +7,18 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
 public class GridServiceTest {
 
 	@Mock
 	private IMongoRepository repo;
 	@InjectMocks
-	private IGridService serv;
+	private ConcreteGridService serv;
 	@Test
 	public void testFindOneByIdWhenExisting() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
