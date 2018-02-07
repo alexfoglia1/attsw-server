@@ -71,4 +71,9 @@ public class GridServiceTest {
 		verify(repo,times(1)).findAll();
 		assertEquals(2,found.size());
 	}
+	@Test
+	public void testDeleteById() {
+		serv.deleteOneById("test_id");
+		verify(repo,times(1)).delete("test_id");
+	}
 }

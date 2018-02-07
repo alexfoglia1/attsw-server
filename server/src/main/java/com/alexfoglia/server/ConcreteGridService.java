@@ -20,7 +20,7 @@ public class ConcreteGridService implements IGridService {
 
 	@Override
 	public void deleteOneById(String id) {
-		// TODO Auto-generated method stub
+		repo.delete(id);
 		
 	}
 
