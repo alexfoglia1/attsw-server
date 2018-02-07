@@ -2,6 +2,7 @@ package com.alexfoglia.server;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,5 +28,10 @@ public class GridServiceTest {
 		assertEquals(1,found.getN());
 		assertArrayEquals(new int[][] {{1}},found.getMatrix());
 	}
-
+	@Test
+	public void testFindOneByIdWhenNonExisting() {
+		when(repo.findOne("test_id")).thenReturn(null);
+		assertNull(serv.findOneById("test_id"));
+		verify(repo,times(1)).findOne("test_id");
+	}
 }
