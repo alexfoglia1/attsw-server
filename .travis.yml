@@ -1,0 +1,32 @@
+language: java
+  
+matrix:
+  include:
+    - os: linux
+    - os: osx
+  
+sudo: false
+
+install: true
+
+addons:
+  sonarcloud:
+    organization: "alexfoglia1-github"
+    token:
+      secure: "J/eSLPIJOWyi3iv7k4Og+4M3OLnNARfGeMMRKGZlIkSfIYM2cMwohkL7l7LNGno1cFwAh3lQF9peM6AHJgE6GiAT9uhpBSrFaB+Y0zHKGZdRNgCDBcmn5NZhLb7raOara26GK/thDWxW/tqRWe6mLP6kzTnKh+iOIXieTnDLlPCuV40D4n953yjbAX+N+zHNqvp6m8Nsr6y0yKkLn+IyBV42dv65lj1uxnT5qOWKRVkj1iR9i6sfeNzzObejo1l6GJT6hSUxj7+taWzI0wdT8nzPDZOD1dhOg03DFlZohHZsjrzzFqZqeENOUzH4Vu+JDZZ4Ga5LffCARkcZIfBo3mIF/levuOQatM/BV4+sa1K5h3SaRHWpvm9Iv+rVk9Dh1C4NxoRqsHmQehrBGpX0K0kBQo/jXwaJV1g3b/dtDS8csnyiqm47/mPaZCzR3QzarpDuWppmJKD8vNP4xW4qJkgv1Kz6hOBsg5MmGeH4Wbkp+98++djwHZTzh48TXrtxfhB5NMD1MogmbSbVDJTYSbG6M00B16LSQMT1b2nL5soTenpHAsKg8DQ18LNDM+haoTyCu8q1zhoY6TSeO6ZpuPvXwwLrpKyQKTtF0uRNLaKtuF5MMTKao52AyW8NmAPSzBsTVwPvnF7kZ00Fzk6JbDMM3HiscMC5SNdu9mHbh1c="
+
+script:
+  - mvn -f server/pom.xml clean verify -Pjacoco coveralls:report
+  - mvn -f server/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f server/pom.xml verify -Pfailsafe
+ 
+after_failure:
+  - cat /home/travis/build/francescosecci/sp-server-attsw/server/target/surefire-reports/*.txt 
+
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
+
+
+  
