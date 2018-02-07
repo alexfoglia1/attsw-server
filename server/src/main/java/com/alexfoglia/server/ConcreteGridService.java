@@ -39,7 +39,8 @@ public class ConcreteGridService implements IGridService {
 
 	@Override
 	public List<String> getShortestPath(String source, String sink, String id) {
-		// TODO Auto-generated method stub
+		DatabaseGrid grid=repo.findOne(id);
+		if(grid==null) throw new RuntimeException(String.format("Grid with id: %s not found",id));
 		return null;
 	}
 

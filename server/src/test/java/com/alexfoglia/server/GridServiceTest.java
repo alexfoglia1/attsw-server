@@ -92,4 +92,9 @@ public class GridServiceTest {
 		assertEquals(0,captor.getValue().getN());
 		assertArrayEquals(new int[0][0],captor.getValue().getMatrix());
 	}
+	@Test(expected=RuntimeException.class)
+	public void testGetShortestPathWhenGridDoesNotExist() {
+		serv.getShortestPath("", "", "");
+		
+	}
 }
