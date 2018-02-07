@@ -12,6 +12,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,6 +25,8 @@ public class GridServiceTest {
 	private IMongoRepository repo;
 	@InjectMocks
 	private ConcreteGridService serv;
+	@Captor
+	private ArgumentCaptor<DatabaseGrid> captor;
 	@Test
 	public void testFindOneByIdWhenExisting() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
@@ -80,5 +84,12 @@ public class GridServiceTest {
 	public void testDeleteAll() {
 		serv.deleteAll();
 		verify(repo,times(1)).deleteAll();
+	}
+	@Test
+	public void testStoreInDb() {
+		serv.storeInDb(0,new int[0][0]);
+		verify(repo,times(1)).save(captor.capture());
+		assertEquals(0,captor.getValue().getN());
+		assertArrayEquals(new int[0][0],captor.getValue().getMatrix());
 	}
 }

@@ -32,7 +32,8 @@ public class ConcreteGridService implements IGridService {
 
 	@Override
 	public void storeInDb(int n, int[][] matrix) {
-		// TODO Auto-generated method stub
+		DatabaseGrid tosave=new DatabaseGrid(n,matrix);
+		repo.save(tosave);
 		
 	}
 
