@@ -15,8 +15,7 @@ public class ConcreteGridService implements IGridService {
 
 	@Override
 	public List<DatabaseGrid> findAllGridsInDb() {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.findAll();
 	}
 
 	@Override

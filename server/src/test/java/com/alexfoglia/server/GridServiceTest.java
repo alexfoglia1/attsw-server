@@ -7,6 +7,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,5 +36,39 @@ public class GridServiceTest {
 		when(repo.findOne("test_id")).thenReturn(null);
 		assertNull(serv.findOneById("test_id"));
 		verify(repo,times(1)).findOne("test_id");
+	}
+	@Test
+	public void testFindAllGridsInDbWhenThereAreNoGrids() {
+		when(repo.findAll()).thenReturn(Arrays.asList());
+		List<DatabaseGrid> found=serv.findAllGridsInDb();
+		verify(repo,times(1)).findAll();
+		assertEquals(0,found.size());
+		
+	}
+	@Test
+	public void testFindAllGridsInDbWhenThereIsOneGrid() {
+		when(repo.findAll()).
+			thenReturn
+				(Arrays.asList
+						(new DatabaseGrid(1,new int[][] {{1}}))
+				);
+		List<DatabaseGrid> found=serv.findAllGridsInDb();
+		verify(repo,times(1)).findAll();
+		assertEquals(1,found.size());
+		DatabaseGrid unique=found.get(0);
+		assertEquals(1,unique.getN());
+		assertArrayEquals(new int[][] {{1}},unique.getMatrix());
+	}
+	@Test
+	public void testFindAllGridsInDbWhenThereAreMultipleGrids() {
+		when(repo.findAll()).
+		thenReturn
+			(Arrays.asList
+					(new DatabaseGrid(1,new int[][] {{1}}),
+					new DatabaseGrid(0,new int[0][0]))
+			);
+		List<DatabaseGrid> found=serv.findAllGridsInDb();
+		verify(repo,times(1)).findAll();
+		assertEquals(2,found.size());
 	}
 }
