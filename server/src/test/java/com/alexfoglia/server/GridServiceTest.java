@@ -76,4 +76,9 @@ public class GridServiceTest {
 		serv.deleteOneById("test_id");
 		verify(repo,times(1)).delete("test_id");
 	}
+	@Test
+	public void testDeleteAll() {
+		serv.deleteAll();
+		verify(repo,times(1)).deleteAll();
+	}
 }

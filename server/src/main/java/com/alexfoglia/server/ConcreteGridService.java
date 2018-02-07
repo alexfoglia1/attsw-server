@@ -26,7 +26,7 @@ public class ConcreteGridService implements IGridService {
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
+		repo.deleteAll();
 		
 	}
 
