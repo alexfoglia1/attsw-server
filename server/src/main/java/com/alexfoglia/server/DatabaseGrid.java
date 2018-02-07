@@ -24,5 +24,13 @@ public class DatabaseGrid {
 	public int getN() {
 		return this.n;
 	}
+	public boolean isEnabled(String node) {
+		boolean correctFormat=node.matches("[0-9]+_[0-9]+");
+		if(!correctFormat) return false;
+		String[] i_j= node.split("_");
+		int i=Integer.parseInt(i_j[0]);
+		int j=Integer.parseInt(i_j[1]);
+		return matrix[i][j]>0;
+	}
 
 }

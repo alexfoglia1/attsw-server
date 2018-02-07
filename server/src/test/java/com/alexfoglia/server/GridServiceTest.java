@@ -95,6 +95,25 @@ public class GridServiceTest {
 	@Test(expected=RuntimeException.class)
 	public void testGetShortestPathWhenGridDoesNotExist() {
 		serv.getShortestPath("", "", "");
-		
+	}
+	@Test
+	public void testGetShortestPathWhenReturningAnEmptyPathDueToNotMatchingRegex() {
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid());
+		List<String> path=serv.getShortestPath("", "", "test_id");
+		verify(repo,times(1)).findOne("test_id");
+		assertEquals(0,path.size());
+	}
+	@Test
+	public void testGetShortestPathWhenReturningAnEmptyPathDueToNonExistingPath() {
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(2,new int[][] {{0,0},{0,0}}));
+		List<String> path=serv.getShortestPath("0_0", "0_1", "test_id");
+		verify(repo,times(1)).findOne("test_id");
+		assertEquals(0,path.size());
+	}
+	@Test
+	public void testGetShortestPathWhenReturningASinglePath() {
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
+		List<String> path=serv.getShortestPath("0_0", "0_0", "test_id");
+		assertEquals(Arrays.asList("0_0"),path);
 	}
 }
