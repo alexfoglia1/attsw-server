@@ -121,9 +121,7 @@ public class ConcreteGridService implements IGridService {
 			}
 		}
 		
-		if(!current.equals(to)) {
-			return new LinkedList<>();
-		}
+
 		for(String node=to; node!=null; node=prev.get(node)) {
 			minPath.add(node);
 		}
