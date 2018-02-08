@@ -79,6 +79,8 @@ public class ConcreteGridService implements IGridService {
 	}
 
 	private void addNeighbourIfExists(String vertex, List<String[]> edges, DatabaseGrid grid, int i, int j) {
+		List<Integer> outOfBoundsValues=Arrays.asList(-1,grid.getN());
+		if(outOfBoundsValues.contains(i) || outOfBoundsValues.contains(j)) return;
 		if (grid.isEnabled(String.format(D_D,i,j))) {
 			String target = String.format(D_D, i, j);
 			edges.add(new String[] {vertex,target});
@@ -87,18 +89,19 @@ public class ConcreteGridService implements IGridService {
 
 
 	private List<String> createNodes(DatabaseGrid grid) {
-		int[][] matrix=grid.getMatrix();
 		List<String> nodes=new LinkedList<>();
-		for(int i=0; i<grid.getN();i++) {
-			for(int j=0; j<grid.getN();j++) {
-				if(matrix[i][j]>0) {
-					nodes.add(String.format(D_D, i,j));
+		int n=grid.getN();
+		for(int i=0; i<n;i++) {
+			for(int j=0; j<n;j++) {
+				String target=String.format(D_D, i,j);
+				if(grid.isEnabled(target)) {
+					nodes.add(target);
 				}
 			}
 		}
 		return nodes;
 	}
-	public List<String> minPath(String from, String to, List<String[]> edges_set) {
+	private List<String> minPath(String from, String to, List<String[]> edges_set) {
 		Map<String,Boolean> vis=new HashMap<>();
 		Map<String,String> prev=new HashMap<>();
 		List<String> minPath=new LinkedList<>();
@@ -121,7 +124,9 @@ public class ConcreteGridService implements IGridService {
 			}
 		}
 		
-
+		if(!current.equals(to)) {
+			return new LinkedList<>();
+		}
 		for(String node=to; node!=null; node=prev.get(node)) {
 			minPath.add(node);
 		}

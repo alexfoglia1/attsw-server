@@ -9,6 +9,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,7 +105,7 @@ public class GridServiceTest {
 		assertEquals(0,path.size());
 	}
 	@Test
-	public void testGetShortestPathWhenReturningAnEmptyPathDueToNonExistingPath() {
+	public void testGetShortestPathWhenReturningAnEmptyPathDueToNonExistingNodes() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(2,new int[][] {{0,0},{0,0}}));
 		List<String> path=serv.getShortestPath("0_0", "0_1", "test_id");
 		verify(repo,times(1)).findOne("test_id");
@@ -126,7 +127,35 @@ public class GridServiceTest {
 		List<String> expectedPath=Arrays.asList("0_0","1_0","1_1","1_2","0_2");
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(3,matrix));
 		List<String> actualPath=serv.getShortestPath("0_0", "0_2", "test_id");
+		List<String> actualPathReverse=serv.getShortestPath("0_2", "0_0", "test_id");
+		assertEquals(expectedPath,actualPath);
+		Collections.reverse(expectedPath);
+		assertEquals(expectedPath,actualPathReverse);
+		verify(repo,times(2)).findOne("test_id");
+	}
+	@Test(expected=ArrayIndexOutOfBoundsException.class)
+	public void testGetShortestPathWhenUnvalidPath() {
+		int[][]matrix=new int[][] {
+				{1,0,1},
+				{1,1,1},
+				{1,1,1}
+		};
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(3,matrix));
+		serv.getShortestPath("0_0", "0_3", "test_id");
+		
+	}
+	@Test
+	public void testGetShortestPathWhenUnvalidPathWhenExistingSourceAndSinkButNoPaths() {
+		int[][]matrix=new int[][] {
+				{1,0,1},
+				{1,0,1},
+				{1,0,1}
+		};
+		List<String> expectedPath=Arrays.asList();
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(3,matrix));
+		List<String> actualPath=serv.getShortestPath("0_0", "0_2", "test_id");
 		assertEquals(expectedPath,actualPath);
 		verify(repo,times(1)).findOne("test_id");
 	}
+	
 }
