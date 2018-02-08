@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Database contents view</title>
+</head>
+<body>
+
+	<h1>Grids</h1>
+	<!-- IF NO EMPLOYEE -->
+	<div th:if="${allGrids.empty}">	
+		<div>No Grids</div>
+	</div>
+	<!-- ELSE -->
+	<div th:unless="${allGrids.empty}">
+		<table id="grid_table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>N</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="grid : ${allGrids}">
+					<td th:text="${grid.id}"></td>
+					<td th:text="${grid.n}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<p> <a href="/">Go back</a> </p>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Input</h1>
+    <form name ="form" action="#" th:action="@{/remtable}" th:object="${usercontent}" method="post">
+    	<p>Id to remove: <input name="n" type="number" th:field="*{n}" /></p>
+        <button name="submit" type="submit" value="Submit" >Submit</button>
+        <button  name="reset" type="reset" value="Reset" >Reset</button>
+    </form>
+    <p> <a href="/">Go back</a> </p>
+</body>
+</html>
