@@ -131,4 +131,16 @@ public class GridHtmlUnitTest {
 		assertEquals(pageTemp.getTitleText(), pageExpected.getTitleText());
 		
 	}
+	@Test
+	public void tableAddResetTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = this.webClient.getPage("/addtable");
+		final HtmlForm form = page.getFormByName("form");
+		form.getInputByName("number").setValueAttribute("4");
+		form.getInputByName("content").setValueAttribute("1101");
+		final HtmlButton reset = form.getButtonByName("reset");
+		reset.click();
+		assertEquals("0",form.getInputByName("number").getAttribute("value"));
+		assertEquals("",form.getInputByName("content").getValueAttribute());
+
+	}
 }
