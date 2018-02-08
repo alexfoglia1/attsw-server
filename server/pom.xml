@@ -29,9 +29,7 @@
 		<sonar.coverage.exclusions>
 			**/ServerApplication.*,
 			**/DatabaseGrid.*,
-			**/UserContent.*,
 			**/WebSecurityConfig.*,
-			**/SqlGrid.*
 		</sonar.coverage.exclusions>
 	</properties>
 
@@ -136,9 +134,7 @@
 							<excludes>
 								<exclude>**/ServerApplication.*</exclude>
 								<exclude>**/DatabaseGrid.*</exclude>
-								<exclude>**/UserContent.*</exclude>
 								<exclude>**/WebSecurityConfig.*</exclude>
-								<exclude>**/SqlGrid.*</exclude>
 							</excludes>
 						</configuration>
 						<executions>
