@@ -34,5 +34,9 @@ public class DatabaseGrid {
 			return matrix[i][j]>0;
 		
 	}
+	public void setId(String id) {
+		this.id=id;
+		
+	}
 
 }
