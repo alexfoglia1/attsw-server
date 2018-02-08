@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Service;
+@Service
 public class ConcreteGridService implements IGridService {
 
 	private static final String D_D="%d_%d";
