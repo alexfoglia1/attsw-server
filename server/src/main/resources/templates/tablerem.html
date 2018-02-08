@@ -7,7 +7,7 @@
 <body>
 	<h1>Input</h1>
     <form name ="form" action="#" th:action="@{/remtable}" th:object="${usercontent}" method="post">
-    	<p>Id to remove: <input name="n" type="number" th:field="*{n}" /></p>
+    	<p>Id to remove: <input name="n" type="text" th:field="*{content}" /></p>
         <button name="submit" type="submit" value="Submit" >Submit</button>
         <button  name="reset" type="reset" value="Reset" >Reset</button>
     </form>

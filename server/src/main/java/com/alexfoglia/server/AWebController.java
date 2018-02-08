@@ -45,4 +45,14 @@ public class AWebController {
 		return "redirect:/";
 
 	}
+	@GetMapping("/remtable")
+    public String remtableForm(Model model) {
+        model.addAttribute(USERCONTENT, new UserContent());
+        return "tablerem";
+    }
+	@PostMapping("/remtable")
+	public String remtable(@ModelAttribute UserContent content) {
+	service.deleteOneById(content.getContent());
+	return "redirect:/";
+	}
 }

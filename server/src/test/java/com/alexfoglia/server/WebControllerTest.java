@@ -183,4 +183,26 @@ public class WebControllerTest  {
 		verify(gridService,times(0)).storeInDb(anyInt(),any(int[][].class));
 		
 	}
+	@Test
+	public void testRemoveTableRendering() throws Exception {
+		
+		mockMvc.perform(get("/remtable").with(httpBasic("user","password"))).andExpect(
+				status().isOk()).
+				andExpect(view().name("tablerem")).
+				andExpect(model().attribute("usercontent",isA(UserContent.class)));
+	}
+	@Test
+	public void testRemoveOneTable() throws Exception {
+		
+		
+		mockMvc.perform(post("/remtable").with(httpBasic("user","password")).
+				param("content","test_id")).
+				andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/"));
+		verify(gridService,times(1)).deleteOneById("test_id");
+		
+		
+	}
+	
+	
 }
