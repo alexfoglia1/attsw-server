@@ -1,6 +1,7 @@
 package com.alexfoglia.server;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.isA;
@@ -19,6 +20,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -94,5 +96,39 @@ public class GridHtmlUnitTest {
 		pageExpected = this.webClient.getPage("/remtable");
 		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
 
+	}
+	@Test
+	public void tableAddTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = this.webClient.getPage("/addtable");
+		List<DomElement> h1 = page.getElementsByTagName("h1");
+		assertThat(h1.size()).isEqualTo(1);
+		final HtmlForm form = page.getFormByName("form");
+		form.getInputByName("number").setValueAttribute("2");
+		form.getInputByName("content").setValueAttribute("1101");
+		final HtmlButton submit = form.getButtonByName("submit");
+		final HtmlPage page2 = submit.click();
+		verifyInvokedStoreInDbWithArguments(2,new int[][] {{1,1},{0,1}});
+		HtmlPage page1 = this.webClient.getPage("/");
+		assertEquals(page1.getTitleText(), page2.getTitleText());
+		assertGoBackIsWorking(page);
+	
+	}
+	
+	private void verifyInvokedStoreInDbWithArguments(int n, int[][] expmat) {
+		ArgumentCaptor<Integer> c1=ArgumentCaptor.forClass(Integer.class);
+		ArgumentCaptor<int[][]> c2=ArgumentCaptor.forClass(int[][].class);
+		verify(gridService,times(1)).storeInDb(c1.capture(),c2.capture());
+		assertEquals(n,c1.getValue().intValue());
+		assertArrayEquals(expmat,c2.getValue());
+		
+	}
+	private void assertGoBackIsWorking(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		
+		final HtmlAnchor a = page.getAnchorByHref("/");
+		assertEquals("HtmlAnchor[<a href=\"/\">]",a.toString());
+		HtmlPage pageTemp = a.click();
+		HtmlPage pageExpected = this.webClient.getPage("/");
+		assertEquals(pageTemp.getTitleText(), pageExpected.getTitleText());
+		
 	}
 }
