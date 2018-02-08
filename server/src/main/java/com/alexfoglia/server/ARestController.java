@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
@@ -22,5 +23,10 @@ public class ARestController {
 		return serializer.toJson(allids);
 		
 	}
-
+	@GetMapping("/api/grid{name}")
+	public String retrieveGrid(@PathVariable String name) {
+		Gson serializer=new Gson();
+		return serializer.toJson(service.findOneById(name));
+	}
+	
 }

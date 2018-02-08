@@ -63,5 +63,51 @@ public class RestControllerTest {
 				
 			verify(gridService,times(1)).findAllGridsInDb();
 	}
+	@Test
+	public void testApiWhenMoreThanOneGridExists() throws Exception{
+		DatabaseGrid grid1=new DatabaseGrid();
+		DatabaseGrid grid2=new DatabaseGrid();
+		grid1.setId("0");
+		grid2.setId("1");
+		whenGetAllGridsReturn(gridService,Arrays.asList(grid1,grid2));
+		this.mvc.perform(get("/api")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("$[0]",is("0")))
+			.andExpect(jsonPath("$[1]",is("1")));
+		verify(gridService,times(1)).findAllGridsInDb();
+	}
 	
+	@Test
+	public void testGrid() throws Exception{
+		int[][] mat=new int[][] {
+			{1,1},
+			{0,1}
+		};
+		DatabaseGrid toreturn=new DatabaseGrid(2,mat);
+		toreturn.setId("1");
+		given(gridService.findOneById("1")).
+			willReturn(toreturn);
+		
+		this.mvc.perform(get("/api/grid1")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andExpect(jsonPath("n",is(2)))
+			.andExpect(jsonPath("matrix",hasSize(2)))
+			.andExpect(jsonPath("id",is("1")));
+			
+		verify(gridService,times(1)).findOneById("1");
+	}
+	@Test
+	public void testGridWhenNotExists() throws Exception{
+		given(gridService.findOneById("1")).
+		willReturn(null);
+	
+	MvcResult res =this.mvc.perform(get("/api/grid1")
+		.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andReturn();
+		assertEquals("null",res.getResponse().getContentAsString());
+	verify(gridService,times(1)).findOneById("1");
+	}
 }
