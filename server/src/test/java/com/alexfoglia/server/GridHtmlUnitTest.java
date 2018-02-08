@@ -143,4 +143,15 @@ public class GridHtmlUnitTest {
 		assertEquals("",form.getInputByName("content").getValueAttribute());
 
 	}
+	@Test
+	public void tableRemoveResetTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = this.webClient.getPage("/remtable");
+		final HtmlForm form = page.getFormByName("form");
+		form.getInputByName("content").setValueAttribute("4");
+		final HtmlButton reset = form.getButtonByName("reset");
+		reset.click();
+		assertEquals("",form.getInputByName("content").getAttribute("value"));
+
+	}
+	
 }
