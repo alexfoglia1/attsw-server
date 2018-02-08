@@ -30,9 +30,7 @@ public class DatabaseGrid {
 			return false;
 		if (!Arrays.deepEquals(matrix, other.matrix))
 			return false;
-		if (n != other.n)
-			return false;
-		return true;
+		return n == other.n;
 	}
 	@Id
 	private String id;
@@ -58,11 +56,10 @@ public class DatabaseGrid {
 	public boolean isEnabled(String node) {
 		boolean correctFormat=node.matches("[0-9]+_[0-9]+");
 		if(!correctFormat) return false;
-		String[] i_j= node.split("_");
-		int i=Integer.parseInt(i_j[0]);
-		int j=Integer.parseInt(i_j[1]);
-		
-			return matrix[i][j]>0;
+		String[] ij= node.split("_");
+		int i=Integer.parseInt(ij[0]);
+		int j=Integer.parseInt(ij[1]);
+		return matrix[i][j]>0;
 		
 	}
 	public void setId(String id) {

@@ -102,7 +102,7 @@ public class ConcreteGridService implements IGridService {
 		}
 		return nodes;
 	}
-	private List<String> minPath(String from, String to, List<String[]> edges_set) {
+	private List<String> minPath(String from, String to, List<String[]> edgeSet) {
 		Map<String,Boolean> vis=new HashMap<>();
 		Map<String,String> prev=new HashMap<>();
 		List<String> minPath=new LinkedList<>();
@@ -115,7 +115,7 @@ public class ConcreteGridService implements IGridService {
 			current=queue.remove();
 			if(current.equals(to)) break;
 			else {
-				for(String neigh:neighboursOf(current,edges_set)) {
+				for(String neigh:neighboursOf(current,edgeSet)) {
 					if(!vis.containsKey(neigh)) {
 						queue.add(neigh);
 						vis.put(neigh,true);

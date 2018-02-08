@@ -18,7 +18,7 @@ public class ARestController {
 	public String index() {
 		Gson serializer=new Gson();
 		List<DatabaseGrid> grids=service.findAllGridsInDb();
-		List<String> allids= new LinkedList<String>();
+		List<String> allids= new LinkedList<>();
 		grids.forEach(grid->allids.add(grid.getId()));
 		return serializer.toJson(allids);
 		
