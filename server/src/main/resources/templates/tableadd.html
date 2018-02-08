@@ -7,7 +7,7 @@
 <body>
 	<h1>Input</h1>
     <form name="form" action="@{/addtable}" th:action="@{/addtable}" th:object="${usercontent}" method="post">
-    	<p>Size: <input type="number" th:field="*{n}" /></p>
+    	<p>Size: <input type="number" th:field="*{number}" /></p>
         <p>Content: <input type="number" th:field="*{content}" /></p>
         <button  type="submit" name="submit" value="Submit">Submit</button> 
         <button type="reset" name="reset" value="Reset" >Reset</button>
