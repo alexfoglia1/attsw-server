@@ -3,10 +3,10 @@ language: java
 sudo: required
 
 services:
-  -docker
+  - docker
 
 install:
-  -docker pull mongo
+  - docker pull mongo
 
 addons:
   sonarcloud:
