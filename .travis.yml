@@ -1,13 +1,12 @@
 language: java
   
-matrix:
-  include:
-    - os: linux
-    - os: osx
-  
-sudo: false
+sudo: required
 
-install: true
+services:
+  -docker
+
+install:
+  -docker pull mongo
 
 addons:
   sonarcloud:
