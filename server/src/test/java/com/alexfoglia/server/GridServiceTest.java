@@ -106,10 +106,14 @@ public class GridServiceTest {
 	}
 	@Test
 	public void testGetShortestPathWhenReturningAnEmptyPathDueToNonExistingNodes() {
-		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(2,new int[][] {{0,0},{0,0}}));
+		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(2,new int[][] {{1,0},{0,1}}));
 		List<String> path=serv.getShortestPath("0_0", "0_1", "test_id");
-		verify(repo,times(1)).findOne("test_id");
 		assertEquals(0,path.size());
+		path=serv.getShortestPath("0_1", "1_1", "test_id");
+		assertEquals(0,path.size());
+		path=serv.getShortestPath("0_1", "1_0", "test_id");
+		assertEquals(0,path.size());
+		verify(repo,times(3)).findOne("test_id");
 	}
 	@Test
 	public void testGetShortestPathWhenReturningASinglePath() {
