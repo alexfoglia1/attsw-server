@@ -110,4 +110,42 @@ public class RestControllerTest {
 		assertEquals("null",res.getResponse().getContentAsString());
 	verify(gridService,times(1)).findOneById("1");
 	}
+	
+	private void whenPathReturn(IGridService gs,String from, String to, String id,List<String> toreturn) {
+		given(gs.getShortestPath(from, to, id)).
+			willReturn(toreturn);
+	}
+	@Test
+	public void testPathWhenOneNode() throws Exception{
+		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList("0"));
+		this.mvc.perform(get("/api/path0_0TO0_2IN0")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$[0]",is("0")));
+		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
+	}
+	@Test
+	public void testPathWhenNoNodes() throws Exception{
+		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList());
+		this.mvc.perform(get("/api/path0_0TO0_2IN0")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$",hasSize(0)));
+		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
+	}
+	
+	@Test
+	public void testPathWhenMoreThanOneNode() throws Exception{
+		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList("0_0","0_1","0_2"));
+		
+		this.mvc.perform(get("/api/path0_0TO0_2IN0")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andExpect(jsonPath("$[0]",is("0_0")))
+				.andExpect(jsonPath("$[1]",is("0_1")))
+				.andExpect(jsonPath("$[2]",is("0_2")));
+		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
+	}
+	
+	
 }

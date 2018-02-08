@@ -28,5 +28,10 @@ public class ARestController {
 		Gson serializer=new Gson();
 		return serializer.toJson(service.findOneById(name));
 	}
-	
+	@GetMapping("/api/path{source}TO{sink}IN{grid}")
+	public String path(@PathVariable String source, @PathVariable String sink, @PathVariable String grid) {
+		List<String> minpath= service.getShortestPath(source, sink, grid);
+		Gson serializer=new Gson();
+		return serializer.toJson(minpath);
+	}
 }
