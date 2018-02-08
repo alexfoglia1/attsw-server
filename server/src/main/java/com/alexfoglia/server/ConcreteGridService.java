@@ -48,25 +48,25 @@ public class ConcreteGridService implements IGridService {
 	@Override
 	public List<String> getShortestPath(String source, String sink, String id) {
 		DatabaseGrid grid=repo.findOne(id);
-		if(grid==null) throw new RuntimeException(String.format("Grid with id: %s not found",id));
+		if(grid==null) throw new MyRuntimeException(String.format("Grid with id: %s not found",id));
 		return getShortestPath(source,sink,grid);
 	}
 
 	private List<String> getShortestPath(String source, String sink, DatabaseGrid grid) {
-		if(!grid.isEnabled(source) || !grid.isEnabled(sink)) return new LinkedList<String>();
+		if(!grid.isEnabled(source) || !grid.isEnabled(sink)) return new LinkedList<>();
 		else if(source.equals(sink)) return Arrays.asList(source);
 		return manageGraph(source,sink,grid);
 	}
 
 	private List<String> manageGraph(String source, String sink, DatabaseGrid grid) {
-		List<String> vertex_set=createNodes(grid);
-		List<String[]> edge_set=createEdges(grid,vertex_set);
-		return minPath(source,sink,edge_set);
+		List<String> vertexSet=createNodes(grid);
+		List<String[]> edgeSet=createEdges(grid,vertexSet);
+		return minPath(source,sink,edgeSet);
 	}
 
-	private List<String[]> createEdges(DatabaseGrid grid,List<String> vertex_set) {
+	private List<String[]> createEdges(DatabaseGrid grid,List<String> vertexSet) {
 		List<String[]> edges=new LinkedList<String[]>();
-		vertex_set.forEach(vertex->addEdge(vertex,edges,grid));
+		vertexSet.forEach(vertex->addEdge(vertex,edges,grid));
 		return edges;
 	}
 
