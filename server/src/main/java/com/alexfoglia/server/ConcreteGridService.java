@@ -65,7 +65,7 @@ public class ConcreteGridService implements IGridService {
 	}
 
 	private List<String[]> createEdges(DatabaseGrid grid,List<String> vertexSet) {
-		List<String[]> edges=new LinkedList<String[]>();
+		List<String[]> edges=new LinkedList<>();
 		vertexSet.forEach(vertex->addEdge(vertex,edges,grid));
 		return edges;
 	}
