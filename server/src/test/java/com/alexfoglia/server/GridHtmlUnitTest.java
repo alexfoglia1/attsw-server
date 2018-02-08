@@ -153,5 +153,33 @@ public class GridHtmlUnitTest {
 		assertEquals("",form.getInputByName("content").getAttribute("value"));
 
 	}
+	@Test
+	public void tableRemoveTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = this.webClient.getPage("/remtable");
+		List<DomElement> h1 = page.getElementsByTagName("h1");
+		assertThat(h1.size()).isEqualTo(1);
+		final HtmlForm form = page.getFormByName("form");
+		form.getInputByName("content").setValueAttribute("0");
+		final HtmlButton button = form.getButtonByName("submit");
+		final HtmlPage page2 = button.click();
+		verify(gridService, times(1)).deleteOneById("0");
+		HtmlPage page1 = this.webClient.getPage("/");
+		assertEquals(page1.getTitleText(), page2.getTitleText());
+		
+		assertGoBackIsWorking(page);
+		
+
+	}
+
+	@Test
+	public void tableViewWithNoGridTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
+		HtmlPage page = this.webClient.getPage("/viewdb");
+		assertThat(page.getTitleText()).isEqualTo("Database contents view");
+		assertThat(page.getBody().getTextContent()).contains("No Grid");
+		
+		assertGoBackIsWorking(page);
+
+	}
+
 	
 }
