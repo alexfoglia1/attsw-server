@@ -165,7 +165,6 @@ public class GridHtmlUnitTest {
 		verify(gridService, times(1)).deleteOneById("0");
 		HtmlPage page1 = this.webClient.getPage("/");
 		assertEquals(page1.getTitleText(), page2.getTitleText());
-		
 		assertGoBackIsWorking(page);
 		
 
@@ -178,6 +177,43 @@ public class GridHtmlUnitTest {
 		assertThat(page.getBody().getTextContent()).contains("No Grid");
 		
 		assertGoBackIsWorking(page);
+
+	}
+	@Test
+	public void HomePageWithGrids() throws Exception {
+		int[][] matrix1 = new int[][] { { 0, 0 }, { 0, 0 } };
+		int[][] matrix2 = new int[][] { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } };
+		DatabaseGrid expected1 = new DatabaseGrid(2,matrix1);
+		DatabaseGrid expected2 = new DatabaseGrid(3,matrix2);
+		expected1.setId("1");
+		expected2.setId("2");
+		when(gridService.findAllGridsInDb()).thenReturn(Arrays.asList(expected1, expected2));
+
+		HtmlPage page = this.webClient.getPage("/viewdb");
+		assertThat(page.getTitleText()).isEqualTo("Database contents view");
+		assertThat(page.getBody().getTextContent()).doesNotContain("No Grids");
+
+		HtmlTable table = page.getHtmlElementById("grid_table");
+
+		List<String> cells = new ArrayList<String>();
+		for (final HtmlTableRow row : table.getRows()) {
+			for (final HtmlTableCell cell : row.getCells()) {
+				cells.add(cell.asText());
+			}
+		}
+		List<String> expectedCells = new ArrayList<String>();
+		expectedCells.add("ID");
+		expectedCells.add("N");
+		expectedCells.add("1");
+		expectedCells.add("2");
+		expectedCells.add("2");
+		expectedCells.add("3");
+
+		assertThat(cells).isEqualTo(expectedCells);
+		
+		assertGoBackIsWorking(page);
+		
+		
 
 	}
 
