@@ -44,11 +44,11 @@ public class WebControllerTest  {
     private FilterChainProxy springSecurityFilter;
 
     protected MockMvc mockMvc;
-    protected MockHttpSession session;
+    
     
     @Before
     public void setup() throws Exception{
-        this.session = new MockHttpSession();
+        
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
                 .addFilters(springSecurityFilter)
                 .build();
