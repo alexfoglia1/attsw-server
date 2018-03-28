@@ -16,19 +16,37 @@
 	      width:100%;
       }
       #grid_table, #choice {
-	      margin-top: 110px;
+      	  border:none;
+      	  margin-top: 60px;
 	      margin-bottom: 110px;
+	      background-color:#E0E0E0;
+	      padding:25px;
+	      -webkit-border-radius: 8;
+	      -moz-border-radius: 8;
+	      border-radius: 8px;
+	      -webkit-box-shadow: 1px 1px 30px 0px rgba(0,0,0,0.82);
+		  -moz-box-shadow: 1px 1px 30px 0px rgba(0,0,0,0.25);
+		  box-shadow: 1px 1px 30px 0px rgba(0,0,0,0.25);
       }
       td {
 	      width:100px;
 	      height:65px;
 	      text-align:center;
+	      padding:5px 20px;
+      }
+      .tdDel {
+      	  background-color:#E0E0E0;
+      }
+      tr {
+      	  background-color:#eaeaea;
+      }
+      th {
+      	  padding:15px;
       }
       .delete {
 	      -webkit-border-radius: 5;
 	      -moz-border-radius: 5;
 	      border-radius: 5px;
-	      font-family: Arial;
 	      color: #ffffff;
 	      font-size: 17px;
 	      background: #d93434;
@@ -60,7 +78,7 @@
           <tr th:each="grid : ${allGrids}">
             <td th:text="${grid.id}"></td>
             <td th:text="${grid.n}"></td>
-            <td><a class="delete" href="/viewdb">Delete</a></td>
+            <td class="tdDel"><a class="delete" href="/viewdb">Delete</a></td>
           </tr>
         </tbody>
       </table>
