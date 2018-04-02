@@ -7,8 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AWebController {
@@ -45,7 +48,7 @@ public class AWebController {
 		return "redirect:/";
 
 	}
-	@GetMapping("/remtable")
+	/*@GetMapping("/remtable")
     public String remtableForm(Model model) {
         model.addAttribute(USERCONTENT, new UserContent());
         return "tablerem";
@@ -54,5 +57,13 @@ public class AWebController {
 	public String remtable(@ModelAttribute UserContent content) {
 	service.deleteOneById(content.getContent());
 	return "redirect:/";
+	}*/
+	
+	@RequestMapping(value = "/remtable", method = RequestMethod.GET)
+	public String handleDeleteUser(@RequestParam(name="id")String id) {
+	    //System.out.println(id);
+	    //System.out.println("test");
+	    service.deleteOneById(id);
+	    return "redirect:/viewdb";
 	}
 }

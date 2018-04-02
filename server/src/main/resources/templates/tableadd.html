@@ -20,6 +20,21 @@
 	      margin-top: 110px;
 	      margin-bottom: 110px;
       }
+      .back {
+		  -webkit-border-radius: 10;
+		  -moz-border-radius: 10;
+		  border-radius: 10px;
+		  font-family: Arial;
+		  color: #ffffff;
+		  font-size: 15px;
+		  background: #de752f;
+		  padding: 6px 30px 6px 30px;
+		  text-decoration: none;
+	  }
+	  .back:hover {
+	  	  background: #fc8f3c;
+	  	  text-decoration: none;
+	  }
       
     </style>
     
@@ -33,7 +48,7 @@
         <button type="reset" name="reset" value="Reset" >Reset</button>
     </form>
      <p class="errmessage" th:text="${errormessage}" />
-    <p align="center"> <a href="/">Go back</a> </p>
+    <p align="center"> <a class="back" href="/">Go back</a> </p>
     
 </body>
 </html>
