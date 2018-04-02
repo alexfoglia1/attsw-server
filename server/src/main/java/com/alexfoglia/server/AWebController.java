@@ -15,20 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AWebController {
+	
 	@Autowired
 	private IGridService service;
 	private static final String USERCONTENT="usercontent";
+	
 	@RequestMapping("/")
 	public String welcome(Model model) {
 		return "database";
 	}
+	
 	@RequestMapping("/viewdb")
 	public String viewdb(Model model) {
 		List<DatabaseGrid> allGrids = service.findAllGridsInDb();
 		model.addAttribute("allGrids", allGrids);
 		return "dbview";
-
 	}
+	
 	@GetMapping("/addtable")
 	public String addtableForm(Model model) {
 		model.addAttribute(USERCONTENT, new UserContent());
@@ -46,13 +49,14 @@ public class AWebController {
 		int[][] matrix=content.parseMatrix();
 		service.storeInDb(n,matrix);
 		return "redirect:/";
-
 	}
+	
 	/*@GetMapping("/remtable")
     public String remtableForm(Model model) {
         model.addAttribute(USERCONTENT, new UserContent());
         return "tablerem";
     }
+    
 	@PostMapping("/remtable")
 	public String remtable(@ModelAttribute UserContent content) {
 	service.deleteOneById(content.getContent());
@@ -66,4 +70,5 @@ public class AWebController {
 	    service.deleteOneById(id);
 	    return "redirect:/viewdb";
 	}
+	
 }

@@ -28,29 +28,33 @@ import org.springframework.test.web.servlet.MvcResult;
 @WebMvcTest(controllers=ARestController.class)
 @Import(WebSecurityConfig.class)
 public class RestControllerTest {
+	
 	@Autowired
 	private MockMvc mvc;
+	
 	@MockBean
 	private IGridService gridService;
-	
+
 	@Test
 	public void testStatus200() throws Exception{
 		mvc.perform(get("/api")).andExpect(status().isOk());
 	}
+	
 	@Test
 	public void testGetAllIdsWhenNoGridExists() throws Exception {
 		whenGetAllGridsReturn(gridService,new LinkedList<DatabaseGrid>());
 		this.mvc.perform(get("/api")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$",hasSize(0)));
-				
-			verify(gridService,times(1)).findAllGridsInDb();
-		
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$",hasSize(0)));
+
+		verify(gridService,times(1)).findAllGridsInDb();
 	}
+	
 	private void whenGetAllGridsReturn(IGridService gs,List<DatabaseGrid> toreturn) {
 		given(gs.findAllGridsInDb()).willReturn(toreturn);
 	}
+	
 	@Test
 	public void testApiWhenSingleGridExists() throws Exception {
 		DatabaseGrid toreturn=new DatabaseGrid();
@@ -58,11 +62,12 @@ public class RestControllerTest {
 		whenGetAllGridsReturn(gridService,Arrays.asList(toreturn));
 		this.mvc.perform(get("/api")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0]",is("0")));
-				
-			verify(gridService,times(1)).findAllGridsInDb();
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$[0]",is("0")));
+
+		verify(gridService,times(1)).findAllGridsInDb();
 	}
+	
 	@Test
 	public void testApiWhenMoreThanOneGridExists() throws Exception{
 		DatabaseGrid grid1=new DatabaseGrid();
@@ -71,13 +76,13 @@ public class RestControllerTest {
 		grid2.setId("1");
 		whenGetAllGridsReturn(gridService,Arrays.asList(grid1,grid2));
 		this.mvc.perform(get("/api")
-			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$[0]",is("0")))
-			.andExpect(jsonPath("$[1]",is("1")));
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$[0]",is("0")))
+		.andExpect(jsonPath("$[1]",is("1")));
 		verify(gridService,times(1)).findAllGridsInDb();
 	}
-	
+
 	@Test
 	public void testGrid() throws Exception{
 		int[][] mat=new int[][] {
@@ -87,65 +92,66 @@ public class RestControllerTest {
 		DatabaseGrid toreturn=new DatabaseGrid(2,mat);
 		toreturn.setId("1");
 		given(gridService.findOneById("1")).
-			willReturn(toreturn);
-		
+		willReturn(toreturn);
+
 		this.mvc.perform(get("/api/grid1")
-			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("n",is(2)))
-			.andExpect(jsonPath("matrix",hasSize(2)))
-			.andExpect(jsonPath("id",is("1")));
-			
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("n",is(2)))
+		.andExpect(jsonPath("matrix",hasSize(2)))
+		.andExpect(jsonPath("id",is("1")));
 		verify(gridService,times(1)).findOneById("1");
 	}
+	
 	@Test
 	public void testGridWhenNotExists() throws Exception{
 		given(gridService.findOneById("1")).
 		willReturn(null);
-	
-	MvcResult res =this.mvc.perform(get("/api/grid1")
-		.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-		.andReturn();
+
+		MvcResult res =this.mvc.perform(get("/api/grid1")
+				.accept(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk())
+				.andReturn();
 		assertEquals("null",res.getResponse().getContentAsString());
-	verify(gridService,times(1)).findOneById("1");
+		verify(gridService,times(1)).findOneById("1");
 	}
-	
+
 	private void whenPathReturn(IGridService gs,String from, String to, String id,List<String> toreturn) {
 		given(gs.getShortestPath(from, to, id)).
-			willReturn(toreturn);
+		willReturn(toreturn);
 	}
+	
 	@Test
 	public void testPathWhenOneNode() throws Exception{
 		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList("0"));
 		this.mvc.perform(get("/api/path0_0TO0_2IN0")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0]",is("0")));
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$[0]",is("0")));
 		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
 	}
+	
 	@Test
 	public void testPathWhenNoNodes() throws Exception{
 		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList());
 		this.mvc.perform(get("/api/path0_0TO0_2IN0")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$",hasSize(0)));
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$",hasSize(0)));
 		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
 	}
-	
+
 	@Test
 	public void testPathWhenMoreThanOneNode() throws Exception{
 		whenPathReturn(gridService,"0_0","0_2","0",Arrays.asList("0_0","0_1","0_2"));
-		
+
 		this.mvc.perform(get("/api/path0_0TO0_2IN0")
 				.accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0]",is("0_0")))
-				.andExpect(jsonPath("$[1]",is("0_1")))
-				.andExpect(jsonPath("$[2]",is("0_2")));
+		.andExpect(status().isOk())
+		.andExpect(jsonPath("$[0]",is("0_0")))
+		.andExpect(jsonPath("$[1]",is("0_1")))
+		.andExpect(jsonPath("$[2]",is("0_2")));
 		verify(gridService,times(1)).getShortestPath("0_0", "0_2", "0");
 	}
-	
-	
+
 }

@@ -94,42 +94,43 @@ public class GridHtmlUnitTest {
 		pageTemp = a2.click();
 		pageExpected = this.webClient.getPage("/remtable");
 		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
-
 	}
+	
 	@Test
 	public void tableAddTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/addtable");
 		List<DomElement> h1 = page.getElementsByTagName("h1");
 		assertThat(h1.size()).isEqualTo(1);
+		
 		final HtmlForm form = page.getFormByName("form");
 		form.getInputByName("number").setValueAttribute("2");
 		form.getInputByName("content").setValueAttribute("1101");
 		final HtmlButton submit = form.getButtonByName("submit");
 		final HtmlPage page2 = submit.click();
 		verifyInvokedStoreInDbWithArguments(2,new int[][] {{1,1},{0,1}});
+		
 		HtmlPage page1 = this.webClient.getPage("/");
 		assertEquals(page1.getTitleText(), page2.getTitleText());
 		assertGoBackIsWorking(page);
-	
 	}
-	
+
 	private void verifyInvokedStoreInDbWithArguments(int n, int[][] expmat) {
 		ArgumentCaptor<Integer> c1=ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<int[][]> c2=ArgumentCaptor.forClass(int[][].class);
 		verify(gridService,times(1)).storeInDb(c1.capture(),c2.capture());
 		assertEquals(n,c1.getValue().intValue());
 		assertArrayEquals(expmat,c2.getValue());
-		
 	}
+	
 	private void assertGoBackIsWorking(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
-		
 		final HtmlAnchor a = page.getAnchorByHref("/");
 		assertEquals("HtmlAnchor[<a href=\"/\">]",a.toString());
+		
 		HtmlPage pageTemp = a.click();
 		HtmlPage pageExpected = this.webClient.getPage("/");
 		assertEquals(pageTemp.getTitleText(), pageExpected.getTitleText());
-		
 	}
+	
 	@Test
 	public void tableAddResetTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/addtable");
@@ -140,8 +141,8 @@ public class GridHtmlUnitTest {
 		reset.click();
 		assertEquals("0",form.getInputByName("number").getAttribute("value"));
 		assertEquals("",form.getInputByName("content").getValueAttribute());
-
 	}
+	
 	@Test
 	public void tableRemoveResetTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/remtable");
@@ -150,8 +151,8 @@ public class GridHtmlUnitTest {
 		final HtmlButton reset = form.getButtonByName("reset");
 		reset.click();
 		assertEquals("",form.getInputByName("content").getAttribute("value"));
-
 	}
+	
 	@Test
 	public void tableRemoveTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/remtable");
@@ -165,8 +166,6 @@ public class GridHtmlUnitTest {
 		HtmlPage page1 = this.webClient.getPage("/");
 		assertEquals(page1.getTitleText(), page2.getTitleText());
 		assertGoBackIsWorking(page);
-		
-
 	}
 
 	@Test
@@ -174,10 +173,9 @@ public class GridHtmlUnitTest {
 		HtmlPage page = this.webClient.getPage("/viewdb");
 		assertThat(page.getTitleText()).isEqualTo("Database contents view");
 		assertThat(page.getBody().getTextContent()).contains("No Grid");
-		
 		assertGoBackIsWorking(page);
-
 	}
+	
 	@Test
 	public void HomePageWithGrids() throws Exception {
 		int[][] matrix1 = new int[][] { { 0, 0 }, { 0, 0 } };
@@ -200,6 +198,7 @@ public class GridHtmlUnitTest {
 				cells.add(cell.asText());
 			}
 		}
+		
 		List<String> expectedCells = new ArrayList<String>();
 		expectedCells.add("ID");
 		expectedCells.add("N");
@@ -207,14 +206,9 @@ public class GridHtmlUnitTest {
 		expectedCells.add("2");
 		expectedCells.add("2");
 		expectedCells.add("3");
-
 		assertThat(cells).isEqualTo(expectedCells);
-		
 		assertGoBackIsWorking(page);
-		
-		
-
 	}
 
-	
+
 }
