@@ -15,23 +15,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AWebController {
-	
+
 	@Autowired
 	private IGridService service;
 	private static final String USERCONTENT="usercontent";
-	
+
 	@RequestMapping("/")
 	public String welcome(Model model) {
 		return "database";
 	}
-	
+
 	@RequestMapping("/viewdb")
 	public String viewdb(Model model) {
 		List<DatabaseGrid> allGrids = service.findAllGridsInDb();
 		model.addAttribute("allGrids", allGrids);
 		return "dbview";
 	}
-	
+
 	@GetMapping("/addtable")
 	public String addtableForm(Model model) {
 		model.addAttribute(USERCONTENT, new UserContent());
@@ -41,32 +41,29 @@ public class AWebController {
 	@PostMapping("/addtable") 
 	public String addtable(@ModelAttribute UserContent content, Model mod) {
 		int n = content.getNumber();
-		if(n<0) {
-			mod.addAttribute(USERCONTENT,new UserContent());
-			mod.addAttribute("errormessage","Matrix size must be >= 0");
-			return "tableadd";
-		}
+		System.out.println("-------------------------"+n);
 		int[][] matrix=content.parseMatrix();
+		System.out.println("-------------------------"+content.getContent());
 		service.storeInDb(n,matrix);
-		return "redirect:/";
+		return "redirect:/viewdb";
 	}
-	
+
 	/*@GetMapping("/remtable")
     public String remtableForm(Model model) {
         model.addAttribute(USERCONTENT, new UserContent());
         return "tablerem";
     }
-    
+
 	@PostMapping("/remtable")
 	public String remtable(@ModelAttribute UserContent content) {
 	service.deleteOneById(content.getContent());
 	return "redirect:/";
 	}*/
-	
+
 	@RequestMapping(value = "/remtable", method = RequestMethod.GET)
 	public String handleDeleteUser(@RequestParam(name="id")String id) {
-	    service.deleteOneById(id);
-	    return "redirect:/viewdb";
+		service.deleteOneById(id);
+		return "redirect:/viewdb";
 	}
-	
+
 }
