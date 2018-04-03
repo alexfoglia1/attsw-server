@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+
+body {
+  background: #d2d2d2;
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+#parag {
+  margin-top: 80px;
+}
+
+p {
+  font-size: 18px;
+}
+
+table, button {
+  visibility: hidden;
+}
+
+button {
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 20px;
+  background: green;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:none;
+  outline: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #009933;
+  text-decoration: none;
+  border:none;
+  outline: none;
+}
+
+td {
+  border:1px solid black;
+  width:70px;
+  height:70px;
+  text-align:center;
+  border-radius: 20px;
+}
+
+#fname {
+	border: 3px solid green;
+	background: #F5F5F5;
+	width: 70px;
+	height: 30px;
+	border-radius: 30px;
+	padding-left: 5px;
+	font-size: 17px;
+}
+
+input.tab {
+	width: 60px;
+	height: 60px;
+	border-radius: 20px;
+	padding:5px;
+	outline: none;
+  border: 1px solid grey;
+  background: #F5F5F5;
+}
+
+</style>
+</head>
+<body>
+<center>
+<h1 id="parag">Scegli la dimensione della Matrice</h1>
+<br><br>
+<p>Dimensione: <input type="number" id="fname" autofocus onkeyup="generate()"></p>
+<br>
+<table id="table">
+
+</table>
+
+<script>
+function generate() {
+    var table = document.getElementById('table');
+    var button = document.getElementById('button');
+    table.innerHTML = "";
+    var x = document.getElementById("fname").value;
+    // Check the values are in fact numbers
+    if ((!isNaN(x)) && (x <= 30) && (x != 0)) {
+      table.style.visibility = "visible";
+      button.style.visibility = "visible";
+      // Iterate through rows
+      for (var r = 0; r < x; r++) {
+        // Create row element
+        var tr = document.createElement('tr');
+        // Iterate through columns
+        for (var c  = 0; c < x; c++) {
+          // Create cell element
+          var td = document.createElement('td');
+          // Setting some text content
+          var input = document.createElement('input');
+          input.setAttribute("type", "number");
+          input.classList.add("tab");
+          td.appendChild(input);
+          //td.textContent = r + '_' + c;
+          // Append cell to row
+          tr.appendChild(td);
+        }
+        // Append row to table
+        table.appendChild(tr);
+      }
+    }else{
+    //if (x == "" || x > 30 || x == 0) {
+      button.style.visibility = "hidden";
+    }
+}
+</script>
+<br><br><br>
+<button id="button">Inserisci!</button>
+<br><br><br>
+</center>
+</body>
+</html>
