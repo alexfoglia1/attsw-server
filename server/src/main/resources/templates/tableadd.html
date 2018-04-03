@@ -65,8 +65,8 @@ input.tab {
 	border-radius: 20px;
 	padding:5px;
 	outline: none;
-    border: 1px solid grey;
-    background: #F5F5F5;
+  border: 1px solid grey;
+  background: #F5F5F5;
 }
 
 </style>
@@ -88,7 +88,7 @@ function generate() {
     table.innerHTML = "";
     var x = document.getElementById("fname").value;
     // Check the values are in fact numbers
-    if ((!isNaN(x)) && (x <= 30) && (x != 0)) {
+    if ((!isNaN(x)) && (x <= 30) && (x > 0)) {
       table.style.visibility = "visible";
       button.style.visibility = "visible";
       // Iterate through rows
@@ -112,7 +112,6 @@ function generate() {
         table.appendChild(tr);
       }
     }else{
-    //if (x == "" || x > 30 || x == 0) {
       button.style.visibility = "hidden";
     }
 }
