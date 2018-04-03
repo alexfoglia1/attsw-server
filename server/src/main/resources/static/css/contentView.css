@@ -16,6 +16,10 @@ h1 {
 	font-weight: bold;
 }
 
+p {
+	margin-bottom:70px;
+}
+
 #grid_table, #choice {
 	border: none;
 	margin-top: 60px;

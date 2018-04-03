@@ -21,6 +21,7 @@ function generate() {
 				var input = document.createElement('input');
 				input.setAttribute("type", "number");
 				input.classList.add("tab");
+				input.setAttribute("value", 0);
 				input.setAttribute("name", r+"_"+c);
 				input.addEventListener('keyup',translateTable);
 				td.appendChild(input);
