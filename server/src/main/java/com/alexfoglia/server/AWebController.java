@@ -41,9 +41,20 @@ public class AWebController {
 	@PostMapping("/addtable") 
 	public String addtable(@ModelAttribute UserContent content, Model mod) {
 		int n = content.getNumber();
-		System.out.println("-------------------------"+n);
-		int[][] matrix=content.parseMatrix();
-		System.out.println("-------------------------"+content.getContent());
+		String stringaVal = content.getContent();
+		int[][] matrix;
+		//System.out.println("-------  n:   -------  \'"+n+"\'  --------");
+		//System.out.println("-------  contenuto:   -------  \'"+stringaVal+"\'  --------");
+		if(stringaVal == "") {
+			for(int i = 0; i < n*n; i++) {
+				stringaVal += "0";
+			}
+			//System.out.println("-------  contenuto tutti 0:   -------  \'"+stringaVal+"\'  --------");
+			content.setContent(stringaVal);
+			matrix=content.parseMatrix();
+		} else {
+			matrix=content.parseMatrix();
+		}
 		service.storeInDb(n,matrix);
 		return "redirect:/viewdb";
 	}
