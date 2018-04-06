@@ -18,23 +18,25 @@ public class GridServiceAndRepositoryIT {
 
 	@Autowired
 	private IMongoRepository repo;
-	
+
 	@Autowired
 	private ConcreteGridService service;
 
-	
 	@After
 	public void tearDown() {
 		repo.deleteAll();
 	}
+	
 	@Before
 	public void setUp() {
 		repo.deleteAll();
 	}
+	
 	@Test
 	public void testGetAllWhenDbEmpty() {
 		assertEquals(0,service.findAllGridsInDb().size());
 	}
+	
 	@Test
 	public void testGetAllWhenDbContainsOne() {
 		repo.save(new DatabaseGrid());
@@ -44,6 +46,7 @@ public class GridServiceAndRepositoryIT {
 		assertEquals(0,grids.get(0).getN());
 		assertArrayEquals(new int[0][0],grids.get(0).getMatrix());
 	}
+	
 	@Test
 	public void testGetAllIdWhenDbContainsMore() {
 		repo.save(new DatabaseGrid());
@@ -57,6 +60,7 @@ public class GridServiceAndRepositoryIT {
 		assertEquals(0,grids.get(1).getN());
 		assertArrayEquals(new int[0][0],grids.get(1).getMatrix());
 	}
+	
 	@Test
 	public void testGetByIdWhenExists() {
 		DatabaseGrid expected=new DatabaseGrid();
@@ -67,11 +71,12 @@ public class GridServiceAndRepositoryIT {
 		assertEquals(0,retrieved.getN());
 		assertArrayEquals(new int[0][0],retrieved.getMatrix());
 	}
+	
 	@Test
 	public void testGetByIdWhenNotExists() {
 		assertNull(service.findOneById(""));
 	}
-	
+
 	@Test
 	public void testGetShortestPath() {
 		int[][]mat;
@@ -85,13 +90,12 @@ public class GridServiceAndRepositoryIT {
 		List<String> path=service.getShortestPath("0_0", "2_1", gen_id);
 		assertEquals(Arrays.asList("0_0","1_0","2_0","2_1"),path);
 	}
+	
 	@Test(expected=ArrayIndexOutOfBoundsException.class)
 	public void testGetShortestPathWhenOutOfBounds() {
 		repo.save(new DatabaseGrid());
 		String gen_id=repo.findAll().get(0).getId();
 		service.getShortestPath("0_0", "0_0", gen_id);
 	}
-
-	
 
 }

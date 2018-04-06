@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<title>Database contents view</title>
+<link th:href="@{/css/contentView.css}" rel="stylesheet" />
+<title>Database Contents View</title>
+<style type="text/css">
+</style>
 </head>
 <body>
-
 	<h1>Grids</h1>
 	<!-- IF NO EMPLOYEE -->
-	<div th:if="${allGrids.empty}">	
-		<div>No Grids</div>
+	<div th:if="${allGrids.empty}">
+		<div id="choice" align="center">No Grids</div>
 	</div>
 	<!-- ELSE -->
-	<div th:unless="${allGrids.empty}">
+	<div th:unless="${allGrids.empty}" align="center">
 		<table id="grid_table">
 			<thead>
 				<tr>
@@ -24,11 +25,14 @@
 				<tr th:each="grid : ${allGrids}">
 					<td th:text="${grid.id}"></td>
 					<td th:text="${grid.n}"></td>
+					<td class="tdDel"><a th:href="@{/remtable(id=${grid.id})}"
+						class="delete">Delete</a></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-
-	<p> <a href="/">Go back</a> </p>
+	<p align="center">
+		<a class="back" href="/">Home</a> <a class="back insert" href="/addtable">Insertion</a>
+	</p>
 </body>
 </html>

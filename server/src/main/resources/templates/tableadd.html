@@ -1,19 +1,36 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Getting Started: Handling Form Submission</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Add Table</title>
+
+<link th:href="@{/css/addTable.css}" rel="stylesheet" />
+
 </head>
+
 <body>
-	<h1>Input</h1>
-    <form name="form" action="@{/addtable}" th:action="@{/addtable}" th:object="${usercontent}" method="post">
-    	<p>Size: <input type="number" th:field="*{number}" /></p>
-        <p>Content: <input type="number" th:field="*{content}" /></p>
-        <button  type="submit" name="submit" value="Submit">Submit</button> 
-        <button type="reset" name="reset" value="Reset" >Reset</button>
-    </form>
-     <p th:text="${errormessage}" />
-    <p> <a href="/">Go back</a> </p>
-    
+
+	<h1 id="parag" align="center">Choose the size of the matrix</h1>
+	<form action="@{/addtable}" th:action="@{/addtable}"
+		th:object="${usercontent}" method="post">
+		<p align="center">
+			Size: <input type="number" th:field="*{number}" id="fname"
+				onkeyup="generate()" />
+		</p>
+
+		<table id="table" align="center">
+
+		</table>
+
+		<p id="demo"></p>
+
+		<input id="matrixString" type="hidden" th:field="*{content}" />
+
+		<button id="button">Insert!</button>
+	</form>
+
+	<script type="text/javascript" th:src="@{/js/generate.js}"></script>
+	<p class="pback" align="center">
+		<a class="back" href="/">Home</a>
+	</p>
 </body>
 </html>

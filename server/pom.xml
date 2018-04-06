@@ -98,6 +98,12 @@
     </dependency>
 
     <dependency>
+      <groupId>org.webjars</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>3.3.7-1</version>
+    </dependency>
+
+    <dependency>
       <groupId>net.sourceforge.htmlunit</groupId>
       <artifactId>htmlunit</artifactId>
       <scope>test</scope>

@@ -24,10 +24,13 @@ public class GridServiceTest {
 
 	@Mock
 	private IMongoRepository repo;
+	
 	@InjectMocks
 	private ConcreteGridService serv;
+	
 	@Captor
 	private ArgumentCaptor<DatabaseGrid> captor;
+	
 	@Test
 	public void testFindOneByIdWhenExisting() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
@@ -36,20 +39,22 @@ public class GridServiceTest {
 		assertEquals(1,found.getN());
 		assertArrayEquals(new int[][] {{1}},found.getMatrix());
 	}
+	
 	@Test
 	public void testFindOneByIdWhenNonExisting() {
 		when(repo.findOne("test_id")).thenReturn(null);
 		assertNull(serv.findOneById("test_id"));
 		verify(repo,times(1)).findOne("test_id");
 	}
+	
 	@Test
 	public void testFindAllGridsInDbWhenThereAreNoGrids() {
 		when(repo.findAll()).thenReturn(Arrays.asList());
 		List<DatabaseGrid> found=serv.findAllGridsInDb();
 		verify(repo,times(1)).findAll();
 		assertEquals(0,found.size());
-		
 	}
+	
 	@Test
 	public void testFindAllGridsInDbWhenThereIsOneGrid() {
 		when(repo.findAll()).
@@ -64,6 +69,7 @@ public class GridServiceTest {
 		assertEquals(1,unique.getN());
 		assertArrayEquals(new int[][] {{1}},unique.getMatrix());
 	}
+	
 	@Test
 	public void testFindAllGridsInDbWhenThereAreMultipleGrids() {
 		when(repo.findAll()).
@@ -76,16 +82,19 @@ public class GridServiceTest {
 		verify(repo,times(1)).findAll();
 		assertEquals(2,found.size());
 	}
+	
 	@Test
 	public void testDeleteById() {
 		serv.deleteOneById("test_id");
 		verify(repo,times(1)).delete("test_id");
 	}
+	
 	@Test
 	public void testDeleteAll() {
 		serv.deleteAll();
 		verify(repo,times(1)).deleteAll();
 	}
+	
 	@Test
 	public void testStoreInDb() {
 		serv.storeInDb(0,new int[0][0]);
@@ -93,10 +102,12 @@ public class GridServiceTest {
 		assertEquals(0,captor.getValue().getN());
 		assertArrayEquals(new int[0][0],captor.getValue().getMatrix());
 	}
+	
 	@Test(expected=RuntimeException.class)
 	public void testGetShortestPathWhenGridDoesNotExist() {
 		serv.getShortestPath("", "", "");
 	}
+	
 	@Test
 	public void testGetShortestPathWhenReturningAnEmptyPathDueToNotMatchingRegex() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid());
@@ -104,6 +115,7 @@ public class GridServiceTest {
 		verify(repo,times(1)).findOne("test_id");
 		assertEquals(0,path.size());
 	}
+	
 	@Test
 	public void testGetShortestPathWhenReturningAnEmptyPathDueToNonExistingNodes() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(2,new int[][] {{1,0},{0,1}}));
@@ -115,12 +127,14 @@ public class GridServiceTest {
 		assertEquals(0,path.size());
 		verify(repo,times(3)).findOne("test_id");
 	}
+	
 	@Test
 	public void testGetShortestPathWhenReturningASinglePath() {
 		when(repo.findOne("test_id")).thenReturn(new DatabaseGrid(1,new int[][] {{1}}));
 		List<String> path=serv.getShortestPath("0_0", "0_0", "test_id");
 		assertEquals(Arrays.asList("0_0"),path);
 	}
+	
 	@Test
 	public void testGetShortestPathCorrect() {
 		int[][]matrix=new int[][] {
@@ -137,6 +151,7 @@ public class GridServiceTest {
 		assertEquals(expectedPath,actualPathReverse);
 		verify(repo,times(2)).findOne("test_id");
 	}
+	
 	@Test(expected=ArrayIndexOutOfBoundsException.class)
 	public void testGetShortestPathWhenUnvalidPath() {
 		int[][]matrix=new int[][] {
@@ -148,6 +163,7 @@ public class GridServiceTest {
 		serv.getShortestPath("0_0", "0_3", "test_id");
 		
 	}
+	
 	@Test
 	public void testGetShortestPathWhenUnvalidPathWhenExistingSourceAndSinkButNoPaths() {
 		int[][]matrix=new int[][] {

@@ -14,8 +14,10 @@ import org.springframework.stereotype.Service;
 public class ConcreteGridService implements IGridService {
 
 	private static final String D_D="%d_%d";
+	
 	@Autowired
 	private IMongoRepository repo;
+	
 	@Override
 	public DatabaseGrid findOneById(String id) {
 		return repo.findOne(id);
@@ -35,14 +37,12 @@ public class ConcreteGridService implements IGridService {
 	@Override
 	public void deleteAll() {
 		repo.deleteAll();
-		
 	}
 
 	@Override
 	public void storeInDb(int n, int[][] matrix) {
 		DatabaseGrid tosave=new DatabaseGrid(n,matrix);
 		repo.save(tosave);
-		
 	}
 
 	@Override
@@ -88,7 +88,6 @@ public class ConcreteGridService implements IGridService {
 		}
 	}
 
-
 	private List<String> createNodes(DatabaseGrid grid) {
 		List<String> nodes=new LinkedList<>();
 		int n=grid.getN();
@@ -102,6 +101,7 @@ public class ConcreteGridService implements IGridService {
 		}
 		return nodes;
 	}
+	
 	private List<String> minPath(String from, String to, List<String[]> edgeSet) {
 		Map<String,Boolean> vis=new HashMap<>();
 		Map<String,String> prev=new HashMap<>();
@@ -110,7 +110,6 @@ public class ConcreteGridService implements IGridService {
 		String current=from;
 		queue.add(current);
 		vis.put(current, true);
-		
 		while(!queue.isEmpty()) {
 			current=queue.remove();
 			if(current.equals(to)) break;
@@ -124,7 +123,6 @@ public class ConcreteGridService implements IGridService {
 				}
 			}
 		}
-		
 		if(!current.equals(to)) {
 			return new LinkedList<>();
 		}
@@ -144,4 +142,5 @@ public class ConcreteGridService implements IGridService {
 		}
 		return neighbours.toString().split(" ");
 	}
+	
 }
