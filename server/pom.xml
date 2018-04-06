@@ -194,7 +194,7 @@
             <version>4.3.0</version>
             <configuration>
               <jacocoReports>
-                <jacocoReport>${project.build.directory}/jacoco.exec.</jacocoReport>
+                <jacocoReport>${project.build.directory}/jacoco.exec</jacocoReport>
               </jacocoReports>
             </configuration>
           </plugin>
