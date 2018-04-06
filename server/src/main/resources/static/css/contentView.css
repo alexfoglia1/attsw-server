@@ -34,21 +34,31 @@ p {
 	box-shadow: 1px 1px 30px 0px rgba(0, 0, 0, 0.25);
 }
 
-.back {
+.back, .insert {
 	-webkit-border-radius: 10;
 	-moz-border-radius: 10;
 	border-radius: 10px;
 	font-family: Arial;
 	color: #ffffff;
 	font-size: 15px;
-	background: #de752f;
 	padding: 6px 30px 6px 30px;
 	text-decoration: none;
 }
 
+.back {
+	background: #de752f;
+}
+
+.insert {
+	background: green;
+}
+
 .back:hover {
 	background: #fc8f3c;
-	text-decoration: none;
+}
+
+.insert:hover {
+	background: #009933;
 }
 
 td {
