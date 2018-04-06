@@ -6,7 +6,7 @@
   <groupId>com.alexfoglia</groupId>
   <artifactId>server</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>pom</packaging>
 
   <name>server</name>
   <description>Demo project for Spring Boot</description>
@@ -275,4 +275,7 @@
       </build>
     </profile>
   </profiles>
+  <modules>
+  	<module>client</module>
+  </modules>
 </project>
