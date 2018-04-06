@@ -16,9 +16,9 @@ addons:
 
 
 script:
-  - mvn -f server/pom.xml clean verify -Pjacoco coveralls:report
-  - mvn -f server/pom.xml clean verify -Pjacoco sonar:sonar
-  - mvn -f server/pom.xml verify -Pfailsafe
+  - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report
+  - mvn -f parent/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f parent/pom.xml verify -Pfailsafe
  
 after_failure:
   - cat /home/travis/build/francescosecci/sp-server-attsw/server/target/surefire-reports/*.txt 
