@@ -8,6 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
+
 	
 
 	<parent>
@@ -172,5 +173,6 @@
 	<modules>
 		<module>../client</module>
 		<module>../server</module>
+		<module>../end2end</module>
 	</modules>
 </project>
