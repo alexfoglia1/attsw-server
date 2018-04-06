@@ -6,6 +6,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,7 +40,15 @@ public class RestControllerTest {
 	public void testStatus200() throws Exception{
 		mvc.perform(get("/api")).andExpect(status().isOk());
 	}
-	
+	@Test
+	public void testDeleteAllIsSecured() throws Exception {
+		mvc.perform(get("/cleardb")).andExpect(status().is4xxClientError());
+	}
+	@Test
+	public void testDeleteAll() throws Exception {
+		mvc.perform(get("/cleardb").with(httpBasic("user","password"))).andExpect(status().isOk());
+		verify(gridService,times(1)).deleteAll();
+	}
 	@Test
 	public void testGetAllIdsWhenNoGridExists() throws Exception {
 		whenGetAllGridsReturn(gridService,new LinkedList<DatabaseGrid>());

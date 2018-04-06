@@ -37,5 +37,9 @@ public class ARestController {
 		Gson serializer=new Gson();
 		return serializer.toJson(minpath);
 	}
-	
+	@GetMapping("/cleardb")
+	public String deleteAll() {
+		service.deleteAll();
+		return "Database cleaned";
+	}
 }
