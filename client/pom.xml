@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.alexfoglia</groupId>
-    <artifactId>server</artifactId>
+    <artifactId>parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>client</artifactId>
