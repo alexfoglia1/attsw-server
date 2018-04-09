@@ -14,7 +14,14 @@ addons:
     token:
       secure: "i8hJQGss99l0HUzXFrAsTpGJLesCC+RUzygtlBmZaPoG3arkm+ECp7sv/ulmuhthibM+c0+U0h/SJE7DHsryg48vHwtqg8+Q7fpMFUYb9pPBaJs6r43nQ6tFlrzaLNU1OwIfBs32SdCbW7PBcH04lMz73meKQyd9jDDUm5PffMWrKxfc72JN6c/kxpFjfRKH7g1hXuneK0/rT9IuiRPS3Xe9FfubHyZIvvWAXrcIAE/+jH1tCfJ5YeFIocgClKI7V8vpr22J0TtTb7ZxhPgVNarr0jv0XykFykAjt7eOJngr5bexAH4M5KRj1CEkl+lrF7fC8ohM+ayISKq8no+Smt9bGtpNLg0KlL641gPUlHhZIGAgOUOb0BmrxN2NSLPP18CMTRxGoKVys/KazseiDv2eYhpHJKkLZUG1JCcmXFbA1l3VHsjeLXDJpm0LG048U3kL26wPRZF/d8TN3K5kDaYqKCsdg/Uu5AyXlqiE1935wFKHDNchbfHKaMIV600RjtVvi02opOYpK38Uc2x/dpCujtCzvrhBVF7lJ1mTPNJaO95nHz/GcHY69wiXvrV9b9W14ETWDewf4G/crqELaH+pGT/vyQIvAS3qy/gYvB/tzmNDyy/XGETv5bIzySe5wNnasfi5ujLuIzRBNymRfmFBYWuBzY5G7YYghpYoT6c="
 
+env:
+  - DISPLAY=:99.0
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then 
+      sh -e /etc/init.d/xvfb start;     
+    fi
+    
 script:
   - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report
   - mvn -f parent/pom.xml clean verify -Pjacoco sonar:sonar
