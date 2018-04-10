@@ -1,5 +1,8 @@
 package org.end2end;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.BeforeClass;
@@ -56,7 +59,8 @@ public class End2EndIT {
 	@Test
 	public void testBrowserCanConnect() {
 		browser.get("http://localhost:8080");
-		System.out.println(browser.getPageSource());
+		assertNotNull(browser.findElementByLinkText("View contents"));
+		assertNotNull(browser.findElementByLinkText("Add table"));
 	}
 
 	@Test
