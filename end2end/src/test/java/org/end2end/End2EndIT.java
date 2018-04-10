@@ -18,48 +18,50 @@ public class End2EndIT {
 	private static FrameFixture window;
 	private static GUI frame;
 	private static HtmlUnitDriver browser;
+
 	@BeforeClass
 	public static void setupClass() {
-		
+
 		frame = GuiActionRunner.execute(() -> GUI.createGui(false));
 		window = new FrameFixture(frame.getFrame());
 		window.show();
-		
-	    SpringApplicationBuilder builder1 = new SpringApplicationBuilder(ServerApplication.class);
-	    builder1
-	        .run(new String[]{""});
-	    browser=new HtmlUnitDriver() {
+
+		SpringApplicationBuilder builder1 = new SpringApplicationBuilder(ServerApplication.class);
+		builder1.run(new String[] { "" });
+		browser = new HtmlUnitDriver() {
 			protected WebClient modifyWebClient(WebClient client) {
-			DefaultCredentialsProvider creds=new DefaultCredentialsProvider();
-			creds.addCredentials("user","password");
-			client.setCredentialsProvider(creds);
-			return client;
+				DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
+				creds.addCredentials("user", "password");
+				client.setCredentialsProvider(creds);
+				return client;
 			}
 		};
 	}
-	
-	
+
 	@Test
 	public void testConnection() {
 		window.textBox("portField").setText("8080");
 		window.button("btnCreateConn").click();
 		window.label("lblOutput").requireText(GUI.OPERATION_OK);
-		
+
 	}
+
 	@Test
 	public void testConnWhenServerIsUnreacheable() {
 		window.textBox("portField").setText("8079");
 		window.button("btnCreateConn").click();
 		window.label("lblOutput").requireText(GUI.SERVER_UNREACHEABLE);
 	}
+
 	@Test
 	public void testBrowserCanConnect() {
 		browser.get("http://localhost:8080");
 		System.out.println(browser.getPageSource());
 	}
+
 	@Test
 	public void testAllGrids() {
-		
+
 	}
 
 }
