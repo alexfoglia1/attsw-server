@@ -50,11 +50,7 @@ public class GridHtmlUnitTest {
 	@MockBean
 	private IGridService gridService;
 
-	@Test
-	public void fakeTest() {
-
-	}
-	/*
+	
 	@Before
 	public void setUp() {
 		String username = "user";
@@ -83,10 +79,8 @@ public class GridHtmlUnitTest {
 		assertThat(li).isEqualTo(2);
 		final HtmlAnchor a = page.getAnchorByHref("/viewdb");
 		final HtmlAnchor a1 = page.getAnchorByHref("/addtable");
-		final HtmlAnchor a2 = page.getAnchorByHref("/remtable");
 		assertEquals( "HtmlAnchor[<a href=\"/viewdb\">]",a.toString());
 		assertEquals("HtmlAnchor[<a href=\"/addtable\">]",a1.toString());
-		assertEquals( "HtmlAnchor[<a href=\"/remtable\">]",a2.toString());
 
 		HtmlPage pageTemp = a.click();
 		HtmlPage pageExpected = this.webClient.getPage("/viewdb");
@@ -96,11 +90,9 @@ public class GridHtmlUnitTest {
 		pageExpected = this.webClient.getPage("/addtable");
 		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
 
-		pageTemp = a2.click();
-		pageExpected = this.webClient.getPage("/remtable");
-		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
+		
 	}
-
+	/*
 	@Test
 	public void tableAddTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/addtable");
