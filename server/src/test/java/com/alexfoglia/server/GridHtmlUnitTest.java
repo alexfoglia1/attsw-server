@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -92,7 +93,7 @@ public class GridHtmlUnitTest {
 
 		
 	}
-	/*
+
 	@Test
 	public void tableAddTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		HtmlPage page = this.webClient.getPage("/addtable");
@@ -106,7 +107,7 @@ public class GridHtmlUnitTest {
 		final HtmlPage page2 = submit.click();
 		verifyInvokedStoreInDbWithArguments(2,new int[][] {{1,1},{0,1}});
 
-		HtmlPage page1 = this.webClient.getPage("/");
+		HtmlPage page1 = this.webClient.getPage("/viewdb");
 		assertEquals(page1.getTitleText(), page2.getTitleText());
 		assertGoBackIsWorking(page);
 	}
@@ -121,28 +122,11 @@ public class GridHtmlUnitTest {
 
 	private void assertGoBackIsWorking(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
 		final HtmlAnchor a = page.getAnchorByHref("/");
-		assertEquals("HtmlAnchor[<a href=\"/\">]",a.toString());
-
+		assertEquals("HtmlAnchor[<a class=\"back\" href=\"/\">]",a.toString());
 		HtmlPage pageTemp = a.click();
 		HtmlPage pageExpected = this.webClient.getPage("/");
 		assertEquals(pageTemp.getTitleText(), pageExpected.getTitleText());
 	}
-
-	@Test
-	public void tableAddResetTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
-		HtmlPage page = this.webClient.getPage("/addtable");
-		final HtmlForm form = page.getFormByName("form");
-		form.getInputByName("number").setValueAttribute("4");
-		form.getInputByName("content").setValueAttribute("1101");
-		final HtmlButton reset = form.getButtonByName("reset");
-		reset.click();
-		assertEquals("0",form.getInputByName("number").getAttribute("value"));
-		assertEquals("",form.getInputByName("content").getValueAttribute());
-	}
-
-
-
-
 
 	@Test
 	public void tableViewWithNoGridTest() throws FailingHttpStatusCodeException, MalformedURLException, IOException {
@@ -151,9 +135,10 @@ public class GridHtmlUnitTest {
 		assertThat(page.getBody().getTextContent()).contains("No Grid");
 		assertGoBackIsWorking(page);
 	}
+	
 
 	@Test
-	public void HomePageWithGrids() throws Exception {
+	public void tableViewWithGridsTest() throws Exception {
 		int[][] matrix1 = new int[][] { { 0, 0 }, { 0, 0 } };
 		int[][] matrix2 = new int[][] { { 1, 1, 1 }, { 1, 1, 1 }, { 1, 1, 1 } };
 		DatabaseGrid expected1 = new DatabaseGrid(2,matrix1);
@@ -161,30 +146,31 @@ public class GridHtmlUnitTest {
 		expected1.setId("1");
 		expected2.setId("2");
 		when(gridService.findAllGridsInDb()).thenReturn(Arrays.asList(expected1, expected2));
-
 		HtmlPage page = this.webClient.getPage("/viewdb");
 		assertThat(page.getTitleText()).isEqualTo("Database Contents View");
 		assertThat(page.getBody().getTextContent()).doesNotContain("No Grids");
-
 		HtmlTable table = page.getHtmlElementById("grid_table");
-
 		List<String> cells = new ArrayList<String>();
 		for (final HtmlTableRow row : table.getRows()) {
 			for (final HtmlTableCell cell : row.getCells()) {
 				cells.add(cell.asText());
 			}
 		}
-
 		List<String> expectedCells = new ArrayList<String>();
 		expectedCells.add("ID");
 		expectedCells.add("N");
 		expectedCells.add("1");
 		expectedCells.add("2");
+		expectedCells.add("Delete");
 		expectedCells.add("2");
 		expectedCells.add("3");
+		expectedCells.add("Delete");
 		assertThat(cells).isEqualTo(expectedCells);
+		HtmlTableCell delCell = table.getCellAt(2, 2);
+		HtmlPage page1=delCell.click();
+		assertEquals(page.getTitleText(),page1.getTitleText());
+		assertTrue(delCell.asXml().contains("href=\"/remtable?id=2\""));
 		assertGoBackIsWorking(page);
 	}
 
-	 */
 }

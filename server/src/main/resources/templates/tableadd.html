@@ -10,10 +10,10 @@
 <body>
 
 	<h1 id="parag" align="center">Choose the size of the matrix</h1>
-	<form action="@{/addtable}" th:action="@{/addtable}"
+	<form name="form" action="@{/addtable}" th:action="@{/addtable}"
 		th:object="${usercontent}" method="post">
 		<p align="center">
-			Size: <input type="number" th:field="*{number}" id="fname"
+			Size: <input name="number" type="number" th:field="*{number}" id="fname"
 				onkeyup="generate()" />
 		</p>
 
@@ -23,9 +23,9 @@
 
 		<p id="demo"></p>
 
-		<input id="matrixString" type="hidden" th:field="*{content}" />
+		<input name="content" id="matrixString" type="hidden" th:field="*{content}" />
 
-		<button id="button">Insert!</button>
+		<button name="submit" id="button">Insert!</button>
 	</form>
 
 	<script type="text/javascript" th:src="@{/js/generate.js}"></script>
