@@ -40,6 +40,12 @@ public class GUIUnitTest {
 	@Test
 	public void testCreateConnector() {
 		IRestServiceClient expected = new RestServiceClient("http://localhost:8080/api/");
+		assertEqualityOfRestServiceClient(expected);
+		when(cl.tryConnection()).thenReturn(true);
+		assertEqualityOfRestServiceClient(expected);
+	}
+
+	private void assertEqualityOfRestServiceClient(IRestServiceClient expected) {
 		frame.createConnection("localhost", "8080");
 		IRestServiceClient actual = frame.getClient().getRestServiceClient();
 		assertEquals(expected, actual);
