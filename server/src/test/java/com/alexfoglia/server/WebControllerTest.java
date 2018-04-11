@@ -3,8 +3,6 @@ package com.alexfoglia.server;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -60,12 +58,14 @@ public class WebControllerTest {
 
 	@Test
 	public void testLoginOk() throws Exception {
-		mockMvc.perform(get("/").with(httpBasic("user", "password"))).andExpect(status().isOk());
+		mockMvc.perform(get("/").with(httpBasic("user", "password")))
+			.andExpect(status().isOk());
 	}
 
 	@Test
 	public void testHomepage() throws Exception {
-		mockMvc.perform(get("/").with(httpBasic("user", "password"))).andExpect(view().name("database"));
+		mockMvc.perform(get("/").with(httpBasic("user", "password")))
+			.andExpect(view().name("database"));
 	}
 
 	@Test
@@ -109,7 +109,6 @@ public class WebControllerTest {
 
 		int[][] expmat = new int[][] { { 1, 0 }, { 1, 0 } };
 		verifyInvokedStoreInDbWithArguments(2, expmat);
-
 	}
 
 	@Test
@@ -120,46 +119,44 @@ public class WebControllerTest {
 				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/viewdb"));
 		int[][] expmat = new int[][] { { 1, 0, 1 }, { 0, 0, 0 }, { 0, 0, 0 } };
 		verifyInvokedStoreInDbWithArguments(3, expmat);
-
 	}
 
 	@Test
 	public void testAddOneTableWhenTooContent() throws Exception {
 
-		mockMvc.perform(post("/addtable").with(httpBasic("user", "password")).param("content", "11101010101010")
+		mockMvc.perform(
+				post("/addtable").with(httpBasic("user", "password")).param("content", "11101010101010")
 				.param("number", "2")).andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/viewdb"));
 
 		int[][] expmat = new int[][] { { 1, 1 }, { 1, 0 } };
 		verifyInvokedStoreInDbWithArguments(2, expmat);
-
 	}
 
 	@Test
 	public void testAddOneTableWhenWrongContent() throws Exception {
 
-		mockMvc.perform(post("/addtable").with(httpBasic("user", "password")).param("content", "pippopluto")
+		mockMvc.perform(
+				post("/addtable").with(httpBasic("user", "password")).param("content", "pippopluto")
 				.param("number", "2")).andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/viewdb"));
 		int[][] expmat = new int[][] { { 0, 0 }, { 0, 0 } };
 		verifyInvokedStoreInDbWithArguments(2, expmat);
-
-	}
-
-	private void verifyInvokedStoreInDbWithArguments(int n, int[][] expmat) {
-		ArgumentCaptor<Integer> c1 = ArgumentCaptor.forClass(Integer.class);
-		ArgumentCaptor<int[][]> c2 = ArgumentCaptor.forClass(int[][].class);
-		verify(gridService, times(1)).storeInDb(c1.capture(), c2.capture());
-		assertEquals(n, c1.getValue().intValue());
-		assertArrayEquals(expmat, c2.getValue());
 	}
 
 	@Test
 	public void testRemoveTable() throws Exception {
 		String testid = "1";
-		mockMvc.perform(get("/remtable?id=" + testid).with(httpBasic("user", "password"))).andExpect(status().is3xxRedirection());
-		verify(gridService,times(1)).deleteOneById(testid);
+		mockMvc.perform(get("/remtable?id=" + testid).with(httpBasic("user", "password")))
+				.andExpect(status().is3xxRedirection());
+		verify(gridService, times(1)).deleteOneById(testid);
 	}
 
-	
+	private void verifyInvokedStoreInDbWithArguments(int n, int[][] expmat) {
+		ArgumentCaptor<Integer> c1=ArgumentCaptor.forClass(Integer.class);
+		ArgumentCaptor<int[][]> c2=ArgumentCaptor.forClass(int[][].class);
+		verify(gridService,times(1)).storeInDb(c1.capture(),c2.capture());
+		assertEquals(n,c1.getValue().intValue());
+		assertArrayEquals(expmat,c2.getValue());
+	}
 }

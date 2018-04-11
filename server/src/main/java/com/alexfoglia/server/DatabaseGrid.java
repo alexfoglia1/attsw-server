@@ -5,22 +5,23 @@ import java.util.Arrays;
 import org.springframework.data.annotation.Id;
 
 public class DatabaseGrid {
-	
+
 	@Id
 	private String id;
+	
 	private int[][] matrix;
 	private int n;
-	
+
 	public DatabaseGrid() {
 		n=0;
 		matrix=new int[n][n];
 	}
-	
+
 	public DatabaseGrid(int n, int[][] matrix) {
 		this.n=n;
 		this.matrix=matrix;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -30,7 +31,7 @@ public class DatabaseGrid {
 		result = prime * result + n;
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -49,19 +50,19 @@ public class DatabaseGrid {
 			return false;
 		return n == other.n;
 	}
-	
+
 	public int[][] getMatrix(){
 		return matrix;
 	}
-	
+
 	public String getId() {
 		return this.id;
 	}
-	
+
 	public int getN() {
 		return this.n;
 	}
-	
+
 	public boolean isEnabled(String node) {
 		boolean correctFormat=node.matches("[0-9]+_[0-9]+");
 		if(!correctFormat) return false;
@@ -70,10 +71,10 @@ public class DatabaseGrid {
 		int j=Integer.parseInt(ij[1]);
 		return matrix[i][j]>0;
 	}
-	
+
 	public void setId(String id) {
 		this.id=id;
-		
+
 	}
 
 }

@@ -12,10 +12,10 @@ import com.google.gson.Gson;
 
 @RestController
 public class ARestController {
-	
+
 	@Autowired
 	private IGridService service;
-	
+
 	@GetMapping("/api")
 	public String index() {
 		Gson serializer=new Gson();
@@ -24,22 +24,24 @@ public class ARestController {
 		grids.forEach(grid->allids.add(grid.getId()));
 		return serializer.toJson(allids);
 	}
-	
+
 	@GetMapping("/api/grid{name}")
 	public String retrieveGrid(@PathVariable String name) {
 		Gson serializer=new Gson();
 		return serializer.toJson(service.findOneById(name));
 	}
-	
+
 	@GetMapping("/api/path{source}TO{sink}IN{grid}")
 	public String path(@PathVariable String source, @PathVariable String sink, @PathVariable String grid) {
 		List<String> minpath= service.getShortestPath(source, sink, grid);
 		Gson serializer=new Gson();
 		return serializer.toJson(minpath);
 	}
+	
 	@GetMapping("/cleardb")
 	public String deleteAll() {
 		service.deleteAll();
 		return "Database cleaned";
 	}
+	
 }

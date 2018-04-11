@@ -55,7 +55,6 @@ public class AWebController {
 		return "redirect:/viewdb";
 	}
 
-
 	@RequestMapping(value = "/remtable", method = RequestMethod.GET)
 	public String handleDeleteUser(@RequestParam(name="id")String id) {
 		service.deleteOneById(id);
