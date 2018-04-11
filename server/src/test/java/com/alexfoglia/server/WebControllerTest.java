@@ -37,12 +37,9 @@ public class WebControllerTest {
 
 	@Autowired
 	private WebApplicationContext wac;
-
 	@Autowired
 	private FilterChainProxy springSecurityFilter;
-
 	protected MockMvc mockMvc;
-
 	@MockBean
 	private IGridService gridService;
 
@@ -106,7 +103,6 @@ public class WebControllerTest {
 		mockMvc.perform(
 				post("/addtable").with(httpBasic("user", "password")).param("content", "1010").param("number", "2"))
 				.andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/viewdb"));
-
 		int[][] expmat = new int[][] { { 1, 0 }, { 1, 0 } };
 		verifyInvokedStoreInDbWithArguments(2, expmat);
 	}
@@ -128,14 +124,12 @@ public class WebControllerTest {
 				post("/addtable").with(httpBasic("user", "password")).param("content", "11101010101010")
 				.param("number", "2")).andExpect(status().is3xxRedirection())
 				.andExpect(view().name("redirect:/viewdb"));
-
 		int[][] expmat = new int[][] { { 1, 1 }, { 1, 0 } };
 		verifyInvokedStoreInDbWithArguments(2, expmat);
 	}
 
 	@Test
 	public void testAddOneTableWhenWrongContent() throws Exception {
-
 		mockMvc.perform(
 				post("/addtable").with(httpBasic("user", "password")).param("content", "pippopluto")
 				.param("number", "2")).andExpect(status().is3xxRedirection())

@@ -48,7 +48,6 @@ public class GUIpanelIT {
 		Mockito.verify(g,times(GRIDSIZE*GRIDSIZE)).setFont(Mockito.any(Font.class));
 		Mockito.verify(g,times(GRIDSIZE*GRIDSIZE)).drawString(Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt());
 		Mockito.verify(g,times(GRIDSIZE*GRIDSIZE)).fillOval(Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt(), Mockito.anyInt());
-
 		Graphics g2=Mockito.spy(new GraphicsWrapper(pan.getGraphics()));
 		pan.enablePoint("test00",0,0,g2);
 		pan.enablePoint("test01", 0, 1,g2);

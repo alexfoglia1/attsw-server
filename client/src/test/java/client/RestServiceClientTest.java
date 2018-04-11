@@ -34,7 +34,6 @@ public class RestServiceClientTest {
 		this.mockedServer.stop();
 	}
 
-
 	private void stubResponse(String url, String body, int responseCode) {
 		stubFor(get(urlEqualTo(url)).willReturn(
 				aResponse()

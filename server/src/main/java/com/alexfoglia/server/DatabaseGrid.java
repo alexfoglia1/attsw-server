@@ -8,7 +8,6 @@ public class DatabaseGrid {
 
 	@Id
 	private String id;
-	
 	private int[][] matrix;
 	private int n;
 
@@ -74,7 +73,6 @@ public class DatabaseGrid {
 
 	public void setId(String id) {
 		this.id=id;
-
 	}
 
 }

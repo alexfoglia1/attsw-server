@@ -1,7 +1,6 @@
 package org.end2end;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.awt.Color;
 
@@ -58,13 +57,6 @@ public class End2EndIT {
 		window.label("lblOutput").requireText(GUI.SERVER_UNREACHEABLE);
 	}
 
-	@Test
-	public void testBrowserCanConnect() {
-		browser.get("http://localhost:8080");
-		assertNotNull(browser.findElementByLinkText("View contents"));
-		assertNotNull(browser.findElementByLinkText("Add table"));
-	}
-	
 	private void retrieveAllGrids() {
 		window.textBox("portField").setText("8080");
 		window.button("btnCreateConn").click();

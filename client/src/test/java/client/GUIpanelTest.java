@@ -37,7 +37,6 @@ public class GUIpanelTest {
 		Dimension min=pan.getMinimumSize();
 		Dimension size=pan.getSize();
 		Dimension expected=new Dimension(512,512);
-
 		assertEquals(pan.getWidth()/2-(GRIDSIZE*pan.getDistance()/4),pan.getOffsetX());
 		assertEquals(pan.getHeight()/2-(GRIDSIZE*pan.getDistance()/4),pan.getOffsetY());
 		assertEquals(Color.WHITE,c);
@@ -145,7 +144,6 @@ public class GUIpanelTest {
 		pan.enablePoint("", 0, 0);
 		pan.enablePoint("", 0, 1);
 		pan.enablePoint("", 0, 2);
-
 		List<String> path=Arrays.asList("0_0","0_1","0_2");
 		pan.highlightPath(path);
 		for(int i=0; i<3;i++) {

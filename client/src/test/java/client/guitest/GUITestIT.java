@@ -230,7 +230,6 @@ public class GUITestIT {
 		verify(cl, times(1)).getAllTables();
 	}
 
-	/**controllare matrice inserita (virgola)*/
 	private GridFromServer createGridWithN3() {
 		int[][] matrix = new int[][] { { 1, 0, 0 }, { 1, 1, 0 }, { 1, 1, 1 },
 		};
@@ -343,11 +342,9 @@ public class GUITestIT {
 		assertEquals(GUIpanel.DARKGREEN, pan.getColorInPoint(0, 0));
 		assertEquals(Color.BLACK, pan.getColorInPoint(0, 1));
 		assertEquals(Color.BLACK, pan.getColorInPoint(0, 2));
-
 		assertEquals(GUIpanel.DARKGREEN, pan.getColorInPoint(1, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(1, 1));
 		assertEquals(Color.BLACK, pan.getColorInPoint(1, 2));
-
 		assertEquals(GUIpanel.DARKGREEN, pan.getColorInPoint(2, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 1));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 2));
@@ -419,7 +416,6 @@ public class GUITestIT {
 		.thenReturn(Arrays.asList("0_0", "1_0", "2_0"));
 		window.button("btnPerform").click();
 	}
-
 	// REQUEST SHORTEST PATH SCENARIO TESTS END
 
 }

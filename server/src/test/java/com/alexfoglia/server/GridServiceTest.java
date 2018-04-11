@@ -73,9 +73,9 @@ public class GridServiceTest {
 	@Test
 	public void testFindAllGridsInDbWhenThereAreMultipleGrids() {
 		when(repo.findAll()).
-		thenReturn
-		(Arrays.asList
-				(new DatabaseGrid(1,new int[][] {{1}}),
+			thenReturn
+				(Arrays.asList(
+						new DatabaseGrid(1,new int[][] {{1}}),
 						new DatabaseGrid(0,new int[0][0]))
 				);
 		List<DatabaseGrid> found=serv.findAllGridsInDb();

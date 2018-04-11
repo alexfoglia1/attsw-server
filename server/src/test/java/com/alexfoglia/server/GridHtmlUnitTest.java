@@ -50,7 +50,6 @@ public class GridHtmlUnitTest {
 
 	@MockBean
 	private IGridService gridService;
-
 	
 	@Before
 	public void setUp() {
@@ -66,12 +65,10 @@ public class GridHtmlUnitTest {
 
 	@Test
 	public void welcomePageTest() throws Exception {
-
 		HtmlPage page = this.webClient.getPage("/");
 		assertThat(page.getTitleText()).isEqualTo("Home Page");
 		List<DomElement> h1 = page.getElementsByTagName("h1");
 		assertThat(h1.size()).isEqualTo(1);
-
 		final HtmlDivision div = page.getHtmlElementById("choice");
 		assertNotNull(div);
 		final HtmlUnorderedList ul = page.getHtmlElementById("list");
@@ -82,11 +79,9 @@ public class GridHtmlUnitTest {
 		final HtmlAnchor a1 = page.getAnchorByHref("/addtable");
 		assertEquals( "HtmlAnchor[<a href=\"/viewdb\">]",a.toString());
 		assertEquals("HtmlAnchor[<a href=\"/addtable\">]",a1.toString());
-
 		HtmlPage pageTemp = a.click();
 		HtmlPage pageExpected = this.webClient.getPage("/viewdb");
 		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
-
 		pageTemp = a1.click();
 		pageExpected = this.webClient.getPage("/addtable");
 		assertEquals(pageExpected.getTitleText(), pageTemp.getTitleText());
@@ -99,14 +94,12 @@ public class GridHtmlUnitTest {
 		HtmlPage page = this.webClient.getPage("/addtable");
 		List<DomElement> h1 = page.getElementsByTagName("h1");
 		assertThat(h1.size()).isEqualTo(1);
-
 		final HtmlForm form = page.getFormByName("form");
 		form.getInputByName("number").setValueAttribute("2");
 		form.getInputByName("content").setValueAttribute("1101");
 		final HtmlButton submit = form.getButtonByName("submit");
 		final HtmlPage page2 = submit.click();
 		verifyInvokedStoreInDbWithArguments(2,new int[][] {{1,1},{0,1}});
-
 		HtmlPage page1 = this.webClient.getPage("/viewdb");
 		assertEquals(page1.getTitleText(), page2.getTitleText());
 		assertGoBackIsWorking(page);

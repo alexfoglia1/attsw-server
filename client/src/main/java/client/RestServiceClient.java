@@ -118,7 +118,6 @@ public class RestServiceClient implements IRestServiceClient {
 	private HttpURLConnection createConnection(String url) throws IOException {
 		URL uurl = new URL(url);
 		return (HttpURLConnection)uurl.openConnection();
-
 	}
 
 	public int getLastResponse() {
