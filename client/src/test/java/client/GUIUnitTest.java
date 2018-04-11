@@ -1,6 +1,11 @@
 package client;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
@@ -18,6 +23,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
+
 import client.gui.GUI;
 import client.gui.GUIpanel;
 
@@ -27,6 +36,7 @@ public class GUIUnitTest {
 	private IClient cl;
 	private GUI frame;
 	private GUIpanel pan;
+	private WireMockServer mockedServer;
 
 	@Before
 	public void setUp() throws AWTException {
@@ -41,10 +51,21 @@ public class GUIUnitTest {
 	public void testCreateConnector() {
 		IRestServiceClient expected = new RestServiceClient("http://localhost:8080/api/");
 		assertEqualityOfRestServiceClient(expected);
-		when(cl.tryConnection()).thenReturn(true);
+		assertFalse(frame.isConnCreated());
+		runServerToVerifyCreationOfConnector();
 		assertEqualityOfRestServiceClient(expected);
+		assertTrue(frame.isConnCreated());
 	}
-
+	private void runServerToVerifyCreationOfConnector() {
+		mockedServer = new WireMockServer(WireMockConfiguration.wireMockConfig().port(8080));
+		WireMock.configureFor("localhost", 8080);
+		mockedServer.start();
+		stubFor(get(urlEqualTo("/api/"))
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader("Content-Type", "application/json")
+						.withBody("")));
+	}
 	private void assertEqualityOfRestServiceClient(IRestServiceClient expected) {
 		frame.createConnection("localhost", "8080");
 		IRestServiceClient actual = frame.getClient().getRestServiceClient();

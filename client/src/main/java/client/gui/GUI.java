@@ -64,6 +64,10 @@ public class GUI {
 		graphicalAdjustements(hidden);
 		createEvents();
 	}
+	
+	public boolean isConnCreated() {
+		return connCreated;
+	}
 
 	public void alert(String message) {
 		lblout.setText(message);
