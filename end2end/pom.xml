@@ -22,16 +22,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.alexfoglia</groupId>
-			<artifactId>client</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>server</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.alexfoglia</groupId>
-			<artifactId>server</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>client</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
