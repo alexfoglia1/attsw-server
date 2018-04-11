@@ -43,6 +43,7 @@ public class ARestController {
 		service.deleteAll();
 		return "Database cleaned";
 	}
+	
 	@GetMapping("/populate")
 	public String populate() {
 		service.deleteAll();
@@ -50,7 +51,6 @@ public class ARestController {
 		service.storeInDb(1, new int[][] {{1}});
 		service.storeInDb(3, new int[][] {{1,1,1},{1,0,1},{1,1,0}});
 		return "Database populed";
-		
 	}
 	
 }
