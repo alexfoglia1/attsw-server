@@ -9,6 +9,17 @@ import java.net.URL;
 public class RestServiceClient implements IRestServiceClient {
 
 	private String urlToGrid;
+	private String urlToPath;
+	private String urlToAll;
+	private int resp;
+	
+	public RestServiceClient(String urlToApi) {
+		this.urlToAll = urlToApi;
+		this.urlToGrid = urlToApi + "grid";
+		this.urlToPath = urlToApi + "path";
+		this.resp=0;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,17 +60,6 @@ public class RestServiceClient implements IRestServiceClient {
 		return true;
 	}
 
-
-	private String urlToPath;
-	private String urlToAll;
-	private int resp;
-	public RestServiceClient(String urlToApi) {
-		this.urlToAll = urlToApi;
-		this.urlToGrid = urlToApi + "grid";
-		this.urlToPath = urlToApi + "path";
-		this.resp=0;
-	}
-	
 	public String doGet(int request, String args) throws IOException {
 		if(request==1) {
 			return manageAll();
@@ -81,8 +81,8 @@ public class RestServiceClient implements IRestServiceClient {
 
 	private String manage(String url, String args) throws IOException  {
 		return read(getConnection(url + args));
-
 	}
+	
 	private String read(HttpURLConnection conn) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(
 				(conn.getInputStream())));
@@ -101,9 +101,7 @@ public class RestServiceClient implements IRestServiceClient {
 		connection.setConnectTimeout(2000);
 		this.resp = connection.getResponseCode();
 		return connection;
-		
 	}
-
 
 	public String getUrlToGrid() {
 		return urlToGrid;
@@ -117,17 +115,14 @@ public class RestServiceClient implements IRestServiceClient {
 		return urlToAll;
 	}
 
-
 	private HttpURLConnection createConnection(String url) throws IOException {
 		URL uurl = new URL(url);
-   	    return (HttpURLConnection)uurl.openConnection();
+		return (HttpURLConnection)uurl.openConnection();
 
 	}
-	
 
 	public int getLastResponse() {
 		return this.resp;
 	}
-
 
 }

@@ -10,8 +10,8 @@ import client.gui.GUI;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
-    	EventQueue.invokeLater(()-> GUI.createGui(false));
-    }
+	public static void main( String[] args )
+	{
+		EventQueue.invokeLater(()-> GUI.createGui(false));
+	}
 }

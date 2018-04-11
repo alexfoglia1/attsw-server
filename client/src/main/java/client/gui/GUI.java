@@ -25,9 +25,6 @@ import client.RestServiceClient;
 
 public class GUI {
 
-	/**
-	 * 
-	 */
 	private JFrame window;
 	private GUIpanel panel;
 	private JPanel north;
@@ -56,11 +53,9 @@ public class GUI {
 		window = new JFrame("Shortest Path Client - ATTSW Project 17-18");
 		initializeGui(hidden);
 		initializeLocalFields();
-
 	}
 
 	private void initializeLocalFields() {
-
 		gridEnabled = pathEnabled = connCreated = false;
 	}
 
@@ -105,12 +100,10 @@ public class GUI {
 		List<String> res = new ArrayList<>();
 		if (from.length() == 0) {
 			alert("Insert source node");
-
 		}
 
 		else if (to.length() == 0) {
 			alert("Insert sink node");
-
 		} else {
 			try {
 				res = tryToHighlightPath(from, to, where);
@@ -126,7 +119,6 @@ public class GUI {
 	private List<String> tryToHighlightPath(String from, String to, String where) throws IOException {
 		panel.highlightPath(null);
 		List<String> minPath = cl.getShortestPath(from, to, where);
-
 		if (minPath.isEmpty()) {
 			alert("No paths found from source node to sink");
 		} else {
@@ -134,11 +126,9 @@ public class GUI {
 			panel.highlightPath(minPath);
 		}
 		return minPath;
-
 	}
 
 	private GridFromServer requestGrid(String id) {
-
 		panel.reset();
 		GridFromServer grid;
 		try {
@@ -155,11 +145,9 @@ public class GUI {
 			alert(NO_CONNECTOR);
 			return null;
 		}
-
 	}
 
 	public List<String> requestAll() {
-
 		try {
 			List<String> all = tryToGetAllTables();
 			alert(OPERATION_OK);
@@ -172,7 +160,6 @@ public class GUI {
 			alert(NO_CONNECTOR);
 			return new ArrayList<>();
 		}
-
 	}
 
 	private List<String> tryToGetAllTables() throws IOException {
@@ -185,7 +172,6 @@ public class GUI {
 	}
 
 	private void createEvents() {
-
 		reset.addActionListener((ActionEvent arg0) -> resetPane());
 		createConnector.addActionListener((ActionEvent arg0) -> createConnection(server.getText(), port.getText()));
 		perform.addActionListener(new ActionListener() {
@@ -203,9 +189,7 @@ public class GUI {
 				} else if (actions.getSelectedIndex() == 2) {
 					caseRequestPath(txtsource.getText(), txtsink.getText(), (String) comboCity.getSelectedItem());
 				}
-
 			}
-
 		});
 	}
 
@@ -217,7 +201,6 @@ public class GUI {
 			txtsource.setText("");
 			txtsink.setText("");
 			return requestPath(from, to, where);
-
 		}
 	}
 
@@ -238,14 +221,12 @@ public class GUI {
 		initFields();
 		lblout.setFont(new Font("", Font.BOLD, 16));
 		lblout.setForeground(Color.BLUE);
-
 	}
 
 	private void initFields() {
 		server.setText("localhost");
 		port.setText("8080");
 		urlToAll.setText("/api/");
-
 	}
 
 	private void addWidgetsToFrame() {
@@ -263,7 +244,6 @@ public class GUI {
 
 	private void addToSouth() {
 		south.add(actions);
-
 		south.add(comboCity);
 		south.add(new JLabel("Source node"));
 		south.add(txtsource);
@@ -285,7 +265,6 @@ public class GUI {
 	}
 
 	private void createWidgets() {
-
 		createPanels();
 		createTextFields();
 		createComboBoxes();
@@ -342,7 +321,6 @@ public class GUI {
 	public void mockClient(IClient mock) {
 		this.cl = mock;
 		connCreated = (mock != null);
-
 	}
 
 	public IClient getClient() {

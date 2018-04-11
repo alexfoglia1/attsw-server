@@ -24,7 +24,6 @@ import org.mockito.Mockito;
 public class GUIUnitTest {
 
 	private IClient cl;
-
 	private GUI frame;
 	private GUIpanel pan;
 
@@ -35,7 +34,6 @@ public class GUIUnitTest {
 		frame.mockPane(pan = Mockito.spy(new GUIpanel(10)));
 		frame.setGridEnabled(true);
 		frame.setPathEnabled(true);
-
 	}
 
 	@Test
@@ -50,21 +48,18 @@ public class GUIUnitTest {
 	public void testSetNullClientRequestGrid() {
 		frame.mockClient(null);
 		assertNull(frame.caseRequestGrid(""));
-
 	}
 
 	@Test
 	public void testSetNullClientRequestAll() {
 		frame.mockClient(null);
 		assertTrue(frame.requestAll().isEmpty());
-
 	}
 
 	@Test
 	public void testSetNullClientRequestPath() {
 		frame.mockClient(null);
 		assertTrue(frame.caseRequestPath("", "", "").isEmpty());
-
 	}
 
 	@Test
@@ -73,7 +68,6 @@ public class GUIUnitTest {
 		List<String> list = frame.requestAll();
 		assertEquals(Arrays.asList(), list);
 		verify(cl, times(1)).getAllTables();
-
 	}
 
 	@Test
@@ -82,7 +76,6 @@ public class GUIUnitTest {
 		List<String> list = frame.requestAll();
 		assertEquals(Arrays.asList("1"), list);
 		verify(cl, times(1)).getAllTables();
-
 	}
 
 	@Test
@@ -91,13 +84,11 @@ public class GUIUnitTest {
 		List<String> list = frame.requestAll();
 		assertEquals(Arrays.asList("1", "2"), list);
 		verify(cl, times(1)).getAllTables();
-
 	}
 
 	@Test
 	public void testRetrieveAllGridsWhenNullPointerException() throws IOException {
 		throwWhenRetrieveAll(new NullPointerException());
-
 	}
 
 	private void throwWhenRetrieveAll(Exception exc) throws IOException {
@@ -108,7 +99,6 @@ public class GUIUnitTest {
 	@Test
 	public void testRetrieveAllGridsWhenIOException() throws IOException {
 		throwWhenRetrieveAll(new IOException());
-
 	}
 
 	@Test
@@ -119,7 +109,6 @@ public class GUIUnitTest {
 	@Test
 	public void testRetrieveOneGridWhenNullPointerException() throws IOException {
 		throwWhenRetrieveGrid(new NullPointerException());
-
 	}
 
 	@Test
@@ -128,7 +117,6 @@ public class GUIUnitTest {
 		GridFromServer retrieved = frame.caseRequestGrid("1");
 		verify(cl, times(1)).retrieveGrid("1");
 		assertEquals(new GridFromServer(), retrieved);
-
 	}
 
 	private void throwWhenRetrieveGrid(Exception exc) throws IOException {
@@ -168,7 +156,6 @@ public class GUIUnitTest {
 	@Test
 	public void testGetShortestPathWhenOKNormalList() throws IOException {
 		assertExpectedPath(Arrays.asList("0_0", "0_1"));
-
 	}
 
 	@Test
@@ -201,7 +188,6 @@ public class GUIUnitTest {
 	}
 
 	private void assertExpectedPath(List<String> expected) throws IOException {
-
 		when(cl.getShortestPath("0_0", "0_1", "1")).thenReturn(expected);
 		List<String> path = frame.caseRequestPath("0_0", "0_1", "1");
 		assertEquals(expected, path);

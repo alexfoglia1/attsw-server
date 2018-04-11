@@ -38,13 +38,12 @@ public class GridFromServer {
 		if (n != other.n)
 			return false;
 		return (Arrays.deepEquals(matrix, other.matrix));
-			
 	}
-	
+
 	public int getN() {
 		return n;
 	}
-	
+
 	public boolean isEnabled(int i, int j) {
 		try {
 			return matrix[i][j]>0;
@@ -52,7 +51,7 @@ public class GridFromServer {
 			return false;
 		}
 	}
-	
+
 	public String getName(int i, int j) {
 		return i+"_"+j;
 	}

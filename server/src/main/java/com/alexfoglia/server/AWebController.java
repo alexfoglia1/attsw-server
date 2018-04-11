@@ -39,36 +39,9 @@ public class AWebController {
 
 	@PostMapping("/addtable") 
 	public String addtable(@ModelAttribute UserContent content, Model mod) {
-		int n = content.getNumber();
-		String stringaVal = content.getContent();
-		int[][] matrix;
-		//System.out.println("-------  n:   -------  \'"+n+"\'  --------");
-		//System.out.println("-------  contenuto:   -------  \'"+stringaVal+"\'  --------");
-		if(stringaVal == "") {
-			for(int i = 0; i < n*n; i++) {
-				stringaVal += "0";
-			}
-			//System.out.println("-------  contenuto tutti 0:   -------  \'"+stringaVal+"\'  --------");
-			content.setContent(stringaVal);
-			matrix=content.parseMatrix();
-		} else {
-			matrix=content.parseMatrix();
-		}
-		service.storeInDb(n,matrix);
+		service.storeInDb(content.getNumber(),content.parseMatrix());
 		return "redirect:/viewdb";
 	}
-
-	/*@GetMapping("/remtable")
-    public String remtableForm(Model model) {
-        model.addAttribute(USERCONTENT, new UserContent());
-        return "tablerem";
-    }
-
-	@PostMapping("/remtable")
-	public String remtable(@ModelAttribute UserContent content) {
-	service.deleteOneById(content.getContent());
-	return "redirect:/";
-	}*/
 
 	@RequestMapping(value = "/remtable", method = RequestMethod.GET)
 	public String handleDeleteUser(@RequestParam(name="id")String id) {

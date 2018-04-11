@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 public class ConcreteGridService implements IGridService {
 
 	private static final String D_D="%d_%d";
-	
+
 	@Autowired
 	private IMongoRepository repo;
-	
+
 	@Override
 	public DatabaseGrid findOneById(String id) {
 		return repo.findOne(id);
@@ -31,7 +31,6 @@ public class ConcreteGridService implements IGridService {
 	@Override
 	public void deleteOneById(String id) {
 		repo.delete(id);
-		
 	}
 
 	@Override
@@ -101,7 +100,7 @@ public class ConcreteGridService implements IGridService {
 		}
 		return nodes;
 	}
-	
+
 	private List<String> minPath(String from, String to, List<String[]> edgeSet) {
 		Map<String,Boolean> vis=new HashMap<>();
 		Map<String,String> prev=new HashMap<>();
@@ -132,7 +131,7 @@ public class ConcreteGridService implements IGridService {
 		Collections.reverse(minPath);
 		return minPath;
 	}
-	
+
 	private String[] neighboursOf(String target, List<String[]> edges) {
 		StringBuilder neighbours=new StringBuilder();
 		for(String[] e:edges) {
@@ -142,5 +141,5 @@ public class ConcreteGridService implements IGridService {
 		}
 		return neighbours.toString().split(" ");
 	}
-	
+
 }

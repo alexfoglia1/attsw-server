@@ -32,15 +32,16 @@ public class RestServiceClientTest {
 	@After
 	public void teardown() {
 		this.mockedServer.stop();
-
 	}
 
-	
+
 	private void stubResponse(String url, String body, int responseCode) {
 		stubFor(get(urlEqualTo(url)).willReturn(
-				aResponse().withStatus(responseCode).withHeader("Content-Type", "application/json").withBody(body)));
+				aResponse()
+				.withStatus(responseCode)
+				.withHeader("Content-Type", "application/json")
+				.withBody(body)));
 	}
-
 
 	@Test
 	public void testConstructorOk() {
@@ -52,7 +53,6 @@ public class RestServiceClientTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testDoGetWhenWrongRequest() throws IOException {
 		fixture.doGet(-1, null);
-
 	}
 
 	@Test
@@ -101,21 +101,18 @@ public class RestServiceClientTest {
 		String expected = "[(A),(B)]";
 		stubResponse("/api/pathATOBINgrid2", expected, 200);
 		fixture.doGet(3, "ATOBINgrid2");
-
 	}
 
 	@Test(expected = IOException.class)
 	public void testDoGetRequestPathWrongWhenServerBecameUnreachable() throws IOException {
 		mockedServer.stop();
 		fixture.doGet(3, "ATOBINgrid2");
-
 	}
 
 	@Test(expected = IOException.class)
 	public void testDoGetRequestPathWrongWhenServerCannotPerformOperation() throws IOException {
 		stubResponse("/api/pathATOBINgrid2", "Error", 500);
 		fixture.doGet(3, "ATOBINgrid2");
-
 	}
 
 }

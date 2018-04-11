@@ -63,9 +63,5 @@ public class End2EndIT {
 		assertNotNull(browser.findElementByLinkText("Add table"));
 	}
 
-	@Test
-	public void testAllGrids() {
-
-	}
 
 }
