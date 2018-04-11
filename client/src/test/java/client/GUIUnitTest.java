@@ -12,13 +12,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-import client.gui.GUI;
-import client.gui.GUIpanel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.mockito.Mockito;
+
+import client.gui.GUI;
+import client.gui.GUIpanel;
 
 @RunWith(JUnit4.class) 
 public class GUIUnitTest {
@@ -186,7 +187,6 @@ public class GUIUnitTest {
 		frame.resetPane();
 		verify(pan, times(1)).reset();
 	}
-
 	private void assertExpectedPath(List<String> expected) throws IOException {
 		when(cl.getShortestPath("0_0", "0_1", "1")).thenReturn(expected);
 		List<String> path = frame.caseRequestPath("0_0", "0_1", "1");

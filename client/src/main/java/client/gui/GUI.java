@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,7 +65,7 @@ public class GUI {
 		createEvents();
 	}
 
-	private void alert(String message) {
+	public void alert(String message) {
 		lblout.setText(message);
 		window.pack();
 	}
@@ -174,23 +173,21 @@ public class GUI {
 	private void createEvents() {
 		reset.addActionListener((ActionEvent arg0) -> resetPane());
 		createConnector.addActionListener((ActionEvent arg0) -> createConnection(server.getText(), port.getText()));
-		perform.addActionListener(new ActionListener() {
+		perform.addActionListener((ActionEvent arg0)-> doPerform());
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (!connCreated) {
-					alert(NO_CONNECTOR);
-					return;
-				}
-				if (actions.getSelectedIndex() == 0) {
-					requestAll();
-				} else if (actions.getSelectedIndex() == 1) {
-					caseRequestGrid((String) comboCity.getSelectedItem());
-				} else if (actions.getSelectedIndex() == 2) {
-					caseRequestPath(txtsource.getText(), txtsink.getText(), (String) comboCity.getSelectedItem());
-				}
-			}
-		});
+	public void doPerform() {
+		if (!connCreated) {
+			alert(NO_CONNECTOR);
+			return;
+		}
+		if (actions.getSelectedIndex() == 0) {
+			requestAll();
+		} else if (actions.getSelectedIndex() == 1) {
+			caseRequestGrid((String) comboCity.getSelectedItem());
+		} else if (actions.getSelectedIndex() == 2) {
+			caseRequestPath(txtsource.getText(), txtsink.getText(), (String) comboCity.getSelectedItem());
+		}
 	}
 
 	public List<String> caseRequestPath(String from, String to, String where) {
@@ -342,6 +339,10 @@ public class GUI {
 
 	public GUIpanel getGuiPanel() {
 		return panel;
+	}
+
+	public void setSelectedAction(int i) {
+		actions.setSelectedIndex(i);
 	}
 
 }
