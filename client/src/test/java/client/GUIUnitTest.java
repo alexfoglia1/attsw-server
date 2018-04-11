@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,18 +36,20 @@ public class GUIUnitTest {
 
 	private IClient cl;
 	private GUI frame;
-	private GUIpanel pan;
 	private WireMockServer mockedServer;
 
 	@Before
 	public void setUp() throws AWTException {
 		frame = GUI.createGui(true);
 		frame.mockClient(cl = Mockito.mock(IClient.class));
-		frame.mockPane(pan = Mockito.spy(new GUIpanel(10)));
 		frame.setGridEnabled(true);
 		frame.setPathEnabled(true);
 	}
-
+	@Test
+	public void testHiddenCreation() {
+		assertFalse(frame.getFrame().isVisible());
+	}
+	
 	@Test
 	public void testCreateConnector() {
 		IRestServiceClient expected = new RestServiceClient("http://localhost:8080/api/");
@@ -211,8 +214,9 @@ public class GUIUnitTest {
 
 	@Test
 	public void testResetPane() {
+		frame.mockPane(Mockito.spy(new GUIpanel(10)));
 		frame.resetPane();
-		verify(pan, times(1)).reset();
+		verify(frame.getGuiPanel(), times(1)).reset();
 	}
 	private void assertExpectedPath(List<String> expected) throws IOException {
 		when(cl.getShortestPath("0_0", "0_1", "1")).thenReturn(expected);
