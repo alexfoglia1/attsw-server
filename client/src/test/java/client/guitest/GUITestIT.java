@@ -38,6 +38,7 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 
 @RunWith(JUnit4.class)
 public class GUITestIT {
+
 	private FrameFixture window;
 	private IClient cl;
 	private GUI frame;
@@ -49,7 +50,11 @@ public class GUITestIT {
 		frame.mockClient(cl = Mockito.mock(IClient.class));
 		window = new FrameFixture(frame.getFrame());
 		window.show();
+	}
 
+	@After
+	public void tearDown() {
+		window.cleanUp();
 	}
 
 	// NO-INTERNET SCENARIO TESTS START
@@ -80,9 +85,8 @@ public class GUITestIT {
 	public void testCreateConnectorWhenServerIsDown() {
 		window.button("btnCreateConn").click();
 		window.label("lblOutput").requireText(GUI.SERVER_UNREACHEABLE);
-
 	}
-	
+
 	@Test
 	public void testCreateConnectorWhenServerIsUp() {
 		stubResponseOnServer();
@@ -93,14 +97,15 @@ public class GUITestIT {
 
 	private void stubResponseOnServer() {
 		mockedServer = new WireMockServer(WireMockConfiguration.wireMockConfig().port(8080));
-	    WireMock.configureFor("localhost", 8080);
+		WireMock.configureFor("localhost", 8080);
 		mockedServer.start();
 		stubFor(get(urlEqualTo("/api/"))
-		          .willReturn(aResponse()
-		              .withStatus(200)
-		              .withHeader("Content-Type", "application/json")
-		              .withBody("")));
+				.willReturn(aResponse()
+						.withStatus(200)
+						.withHeader("Content-Type", "application/json")
+						.withBody("")));
 	}
+
 	private GUIpanel getGuiPanel() {
 		return (GUIpanel) (window.panel("guiPanel").target());
 	}
@@ -133,7 +138,6 @@ public class GUITestIT {
 		window.comboBox("actionsCombo").selectItem(0);
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText(GUI.NO_CONNECTOR);
-
 	}
 
 	@Test
@@ -154,7 +158,6 @@ public class GUITestIT {
 	public void testRetrieveAllGridsWhenSingle() throws IOException {
 		retrieveAllGrids(1);
 		assertRetrieving(1);
-
 	}
 
 	private void retrieveAllGrids(int expected) throws IOException {
@@ -165,7 +168,6 @@ public class GUITestIT {
 		when(cl.getAllTables()).thenReturn(Arrays.asList(array));
 		window.comboBox("actionsCombo").selectItem(0);
 		window.button("btnPerform").click();
-
 	}
 	// RETRIEVE ALL GRIDS SCENARIO TESTS END
 
@@ -175,7 +177,6 @@ public class GUITestIT {
 		window.comboBox("actionsCombo").selectItem(1);
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText("Error, you must retrieve all grids first");
-
 	}
 
 	@Test
@@ -202,7 +203,7 @@ public class GUITestIT {
 		window.comboBox("actionsCombo").selectItem(1);
 		window.comboBox("gridCombo").selectItem(0);
 		when(cl.retrieveGrid("0"))
-				.thenReturn(new GridFromServer(3, new int[][] { { 1, 0, 0 }, { 1, 1, 0 }, { 1, 1, 1 } }));
+		.thenReturn(new GridFromServer(3, new int[][] { { 1, 0, 0 }, { 1, 1, 0 }, { 1, 1, 1 } }));
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText(GUI.OPERATION_OK);
 		GUIpanel pan = getGuiPanel();
@@ -223,16 +224,15 @@ public class GUITestIT {
 				if (pan.getColorInPoint(i, j).equals(Color.RED))
 					expected_name = String.format("%d_%d", i, j);
 				assertEquals(expected_name, pan.getPrintedNameIn(i, j));
-
 			}
 		}
 		window.comboBox("gridCombo").requireDisabled();
 		verify(cl, times(1)).getAllTables();
 	}
 
+	/**controllare matrice inserita (virgola)*/
 	private GridFromServer createGridWithN3() {
 		int[][] matrix = new int[][] { { 1, 0, 0 }, { 1, 1, 0 }, { 1, 1, 1 },
-
 		};
 		return new GridFromServer(3, matrix);
 	}
@@ -243,7 +243,6 @@ public class GUITestIT {
 		window.comboBox("gridCombo").selectItem(id);
 		when(cl.retrieveGrid("0")).thenReturn(createGridWithN3());
 		window.button("btnPerform").click();
-
 	}
 	// RETRIEVE ONE GRID SCENARIO TESTS END
 
@@ -255,11 +254,10 @@ public class GUITestIT {
 		window.textBox("sourceField").setText("test");
 		window.textBox("sinkField").setText("test");
 		when(cl.getShortestPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-				.thenThrow(new NullPointerException());
+		.thenThrow(new NullPointerException());
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText(GUI.NO_CONNECTOR);
 		verify(cl, times(0)).getShortestPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
-
 	}
 
 	@Test
@@ -269,10 +267,9 @@ public class GUITestIT {
 		window.textBox("sinkField").setText("test");
 		window.comboBox("actionsCombo").selectItem(2);
 		when(cl.getShortestPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
-				.thenThrow(new IOException());
+		.thenThrow(new IOException());
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText(GUI.SERVER_ERROR);
-
 	}
 
 	@Test
@@ -318,7 +315,7 @@ public class GUITestIT {
 		window.textBox("sourceField").setText("0_0");
 		window.textBox("sinkField").setText("test");
 		when(cl.getShortestPath(Mockito.eq("test"), Mockito.eq("0_0"), Mockito.anyString()))
-				.thenReturn(new LinkedList<String>());
+		.thenReturn(new LinkedList<String>());
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText("No paths found from source node to sink");
 		verify(cl, times(1)).getShortestPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
@@ -331,11 +328,10 @@ public class GUITestIT {
 		window.textBox("sourceField").setText("test");
 		window.textBox("sinkField").setText("0_0");
 		when(cl.getShortestPath(Mockito.eq("test"), Mockito.eq("0_0"), Mockito.anyString()))
-				.thenReturn(new LinkedList<String>());
+		.thenReturn(new LinkedList<String>());
 		window.button("btnPerform").click();
 		window.label("lblOutput").requireText("No paths found from source node to sink");
 		verify(cl, times(1)).getShortestPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
-
 	}
 
 	@Test
@@ -355,7 +351,6 @@ public class GUITestIT {
 		assertEquals(GUIpanel.DARKGREEN, pan.getColorInPoint(2, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 1));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 2));
-
 	}
 
 	@Test
@@ -400,7 +395,6 @@ public class GUITestIT {
 		assertEquals(Color.RED, pan.getColorInPoint(2, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 1));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 2));
-
 	}
 
 	@Test
@@ -422,15 +416,10 @@ public class GUITestIT {
 		window.textBox("sourceField").setText("0_0");
 		window.textBox("sinkField").setText("2_0");
 		when(cl.getShortestPath(Mockito.eq("0_0"), Mockito.eq("2_0"), Mockito.anyString()))
-				.thenReturn(Arrays.asList("0_0", "1_0", "2_0"));
+		.thenReturn(Arrays.asList("0_0", "1_0", "2_0"));
 		window.button("btnPerform").click();
-
 	}
 
 	// REQUEST SHORTEST PATH SCENARIO TESTS END
-	@After
-	public void tearDown() {
-		window.cleanUp();
-	}
 
 }

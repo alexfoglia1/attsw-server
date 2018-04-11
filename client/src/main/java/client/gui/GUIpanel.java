@@ -42,7 +42,6 @@ public class GUIpanel extends JPanel {
 	private void initGrid(int maxSize) {
 		initDrawingVariables(maxSize);
 		doInitGrid(maxSize);
-
 	}
 
 	private void doInitGrid(int maxSize) {
@@ -70,7 +69,6 @@ public class GUIpanel extends JPanel {
 	public void reset() {
 		doReset();
 		refreshView();
-
 	}
 
 	private void refreshView() {
@@ -93,9 +91,7 @@ public class GUIpanel extends JPanel {
 	}
 
 	public void enablePoint(String toPrintInPoint, int i, int j) {
-
 		setColorToPoint(toPrintInPoint, i, j, Color.RED);
-
 	}
 
 	private void setColorToPoint(String toPrintInPoint, int i, int j, Color col) {
@@ -117,7 +113,6 @@ public class GUIpanel extends JPanel {
 				drawOne(g, i, j);
 			}
 		}
-
 	}
 
 	private void drawOne(Graphics g, int i, int j) {
@@ -128,7 +123,6 @@ public class GUIpanel extends JPanel {
 	}
 
 	public void highlightPath(List<String> path) {
-
 		if (path == null) {
 			unhighlight();
 		} else {
@@ -144,14 +138,15 @@ public class GUIpanel extends JPanel {
 	}
 
 	private void highlightOne(String e) {
-		if (!e.matches("[0-9]+\\_[0-9]+"))
+		if (!e.matches("[0-9]+\\_[0-9]+")) {
 			throw new IllegalArgumentException("Check syntax");
-
+		}
 		String[] pts=e.split("_");
 		int i=Integer.parseInt(pts[0]);
 		int j=Integer.parseInt(pts[1]);
-		if (gridColor[i][j].equals(Color.RED))
+		if (gridColor[i][j].equals(Color.RED)) {
 			gridColor[i][j] = (DARKGREEN);
+		}
 	}
 
 	private void unhighlight() {
@@ -166,17 +161,14 @@ public class GUIpanel extends JPanel {
 
 	public Color getColorInPoint(int i, int j) {
 		return gridColor[i][j];
-
 	}
 
 	public String getPrintedNameIn(int i, int j) {
 		return gridNames[i][j];
-
 	}
 
 	public void enableNotHighlightablePoint(String toPrintInPoint, int i, int j) {
 		setColorToPoint(toPrintInPoint, i, j, Color.BLACK);
-
 	}
 
 	public int getOffsetY() {

@@ -42,13 +42,10 @@ public class AWebController {
 		int n = content.getNumber();
 		String stringaVal = content.getContent();
 		int[][] matrix;
-		//System.out.println("-------  n:   -------  \'"+n+"\'  --------");
-		//System.out.println("-------  contenuto:   -------  \'"+stringaVal+"\'  --------");
 		if(stringaVal == "") {
 			for(int i = 0; i < n*n; i++) {
 				stringaVal += "0";
 			}
-			//System.out.println("-------  contenuto tutti 0:   -------  \'"+stringaVal+"\'  --------");
 			content.setContent(stringaVal);
 			matrix=content.parseMatrix();
 		} else {
@@ -58,7 +55,8 @@ public class AWebController {
 		return "redirect:/viewdb";
 	}
 
-	/*@GetMapping("/remtable")
+	/** previous method for delete
+	@GetMapping("/remtable")
     public String remtableForm(Model model) {
         model.addAttribute(USERCONTENT, new UserContent());
         return "tablerem";

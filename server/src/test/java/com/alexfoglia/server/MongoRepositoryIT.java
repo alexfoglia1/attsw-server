@@ -19,9 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class MongoRepositoryIT {
 
-	@Autowired private IMongoRepository repo;
+	@Autowired 
+	private IMongoRepository repo;
 
-	@Autowired private MongoOperations mongoOps;
+	@Autowired 
+	private MongoOperations mongoOps;
 
 	@Before
 	public void setUp() {
@@ -49,7 +51,7 @@ public class MongoRepositoryIT {
 		assertEquals("a_generated_id",found.getId());
 		assertArrayEquals(new int[][] {{1}},found.getMatrix());
 	}
-	
+
 	@Test
 	public void testFindAll() {
 		DatabaseGrid grid1=new DatabaseGrid();
@@ -67,5 +69,5 @@ public class MongoRepositoryIT {
 		assertEquals(0,allGrids.get(1).getN());
 		assertArrayEquals(new int[0][0],allGrids.get(1).getMatrix());
 	}
-	
+
 }

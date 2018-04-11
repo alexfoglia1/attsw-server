@@ -43,72 +43,77 @@ public class WebControllerTest  {
 	private FilterChainProxy springSecurityFilter;
 
 	protected MockMvc mockMvc;
-	
+
 	@MockBean
 	private IGridService gridService;
 
 	@Before
 	public void setup() throws Exception{
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(wac)
-				.addFilters(springSecurityFilter)
-				.build();
+			.addFilters(springSecurityFilter)
+			.build();
 	}
 
 	@Test
 	public void testLogin401() throws Exception {
-		mockMvc.perform(get("/")).andExpect(status().is(401));
+		mockMvc.perform(get("/"))
+			.andExpect(status().is(401));
 	}
-	
+
 	@Test
 	public void testLoginOk() throws Exception{
-		mockMvc.perform(get("/").with(httpBasic("user","password"))).andExpect(
-				status().isOk());
+		mockMvc.perform(get("/").with(httpBasic("user","password")))
+			.andExpect(status().isOk());
 	}
-	
+
 	@Test
 	public void testHomepage() throws Exception {
-		mockMvc.perform(get("/").with(httpBasic("user","password"))).
-		andExpect(view().name("database"));
+		mockMvc.perform(get("/").with(httpBasic("user","password")))
+			.andExpect(view().name("database"));
 	}
-	
+
 	@Test
 	public void testViewDb() throws Exception{
-		mockMvc.perform(get("/viewdb").with(httpBasic("user","password"))).andExpect(
-				status().isOk()).
-		andExpect(view().name("dbview")).
-		andExpect(model().attribute("allGrids", new LinkedList<>()));
+		mockMvc.perform(get("/viewdb")
+			.with(httpBasic("user","password")))
+			.andExpect(status().isOk())
+			.andExpect(view().name("dbview"))
+			.andExpect(model().attribute("allGrids", new LinkedList<>()));
 		verify(gridService,times(1)).findAllGridsInDb();
 	}
-	
+
 	@Test
 	public void testViewDbWhenThereIsOneGrid() throws Exception{
 		when(gridService.findAllGridsInDb()).thenReturn(Arrays.asList(new DatabaseGrid()));
-		mockMvc.perform(get("/viewdb").with(httpBasic("user","password"))).andExpect(
-				status().isOk()).
-		andExpect(view().name("dbview")).
-		andExpect(model().attribute("allGrids", Arrays.asList(new DatabaseGrid())));
+		mockMvc.perform(get("/viewdb")
+			.with(httpBasic("user","password")))
+			.andExpect(status().isOk())
+			.andExpect(view().name("dbview"))
+			.andExpect(model().attribute("allGrids", Arrays.asList(new DatabaseGrid())));
 		verify(gridService,times(1)).findAllGridsInDb();
 	}
-	
+
 	@Test
 	public void testViewDbWhenThereAreMultipleGrids() throws Exception{
 		when(gridService.findAllGridsInDb()).thenReturn(Arrays.asList(new DatabaseGrid(),new DatabaseGrid()));
-		mockMvc.perform(get("/viewdb").with(httpBasic("user","password"))).andExpect(
-				status().isOk()).
-		andExpect(view().name("dbview")).
-		andExpect(model().attribute("allGrids", Arrays.asList(new DatabaseGrid(),new DatabaseGrid())));
+		mockMvc.perform(get("/viewdb")
+			.with(httpBasic("user","password")))
+			.andExpect(status().isOk())
+			.andExpect(view().name("dbview"))
+			.andExpect(model().attribute("allGrids", Arrays.asList(new DatabaseGrid(),new DatabaseGrid())));
 		verify(gridService,times(1)).findAllGridsInDb();
 	}
-	
+
 	@Test
 	public void testAddTableRendering() throws Exception {
-		mockMvc.perform(get("/addtable").with(httpBasic("user","password"))).andExpect(
-				status().isOk()).
-		andExpect(view().name("tableadd")).
-		andExpect(model().attribute("usercontent",isA(UserContent.class))).
-		andExpect(model().attributeDoesNotExist("errormessage"));
+		mockMvc.perform(get("/addtable")
+			.with(httpBasic("user","password")))
+			.andExpect(status().isOk())
+			.andExpect(view().name("tableadd"))
+			.andExpect(model().attribute("usercontent",isA(UserContent.class)))
+			.andExpect(model().attributeDoesNotExist("errormessage"));
 	}
-	
+
 	@Test
 	public void testAddOneTable() throws Exception {
 		/*
@@ -120,9 +125,9 @@ public class WebControllerTest  {
 
 		int[][] expmat=new int[][] {{1,0},{1,0}};
 		verifyInvokedStoreInDbWithArguments(2,expmat);
-		*/
+		 */
 	}
-	
+
 	@Test
 	public void testAddOneTableWhenMissingContent() throws Exception {
 		/*
@@ -133,9 +138,9 @@ public class WebControllerTest  {
 		andExpect(view().name("redirect:/"));
 		int[][] expmat=new int[][] {{1,0,1},{0,0,0},{0,0,0}};
 		verifyInvokedStoreInDbWithArguments(3,expmat);
-		*/
+		 */
 	}
-	
+
 	@Test
 	public void testAddOneTableWhenTooContent() throws Exception {
 		/*
@@ -147,9 +152,9 @@ public class WebControllerTest  {
 
 		int[][] expmat=new int[][] {{1,1},{1,0}};
 		verifyInvokedStoreInDbWithArguments(2,expmat);
-		*/
+		 */
 	}
-	
+
 	@Test
 	public void testAddOneTableWhenWrongContent() throws Exception {
 		/*
@@ -161,17 +166,18 @@ public class WebControllerTest  {
 		;
 		int[][] expmat=new int[][] {{0,0},{0,0}};
 		verifyInvokedStoreInDbWithArguments(2,expmat);
-		*/
+		 */
 	}
-	
+
+	/*
 	private void verifyInvokedStoreInDbWithArguments(int n, int[][] expmat) {
 		ArgumentCaptor<Integer> c1=ArgumentCaptor.forClass(Integer.class);
 		ArgumentCaptor<int[][]> c2=ArgumentCaptor.forClass(int[][].class);
 		verify(gridService,times(1)).storeInDb(c1.capture(),c2.capture());
 		assertEquals(n,c1.getValue().intValue());
 		assertArrayEquals(expmat,c2.getValue());
-	}
-	
+	}*/
+
 	@Test
 	public void testAddOneTableWhenWrongMatrixSize() throws Exception {
 		/*
@@ -183,9 +189,9 @@ public class WebControllerTest  {
 		.andExpect(model().attributeExists("errormessage"));
 
 		verify(gridService,times(0)).storeInDb(anyInt(),any(int[][].class));
-		*/
+		 */
 	}
-	
+
 	@Test
 	public void testRemoveTableRendering() throws Exception {
 		/*
@@ -193,9 +199,9 @@ public class WebControllerTest  {
 				status().isOk()).
 		andExpect(view().name("tablerem")).
 		andExpect(model().attribute("usercontent",isA(UserContent.class)));
-		*/
+		 */
 	}
-	
+
 	@Test
 	public void testRemoveOneTable() throws Exception {
 		/*
@@ -204,7 +210,7 @@ public class WebControllerTest  {
 		andExpect(status().is3xxRedirection())
 		.andExpect(view().name("redirect:/"));
 		verify(gridService,times(1)).deleteOneById("test_id");
-		*/
+		 */
 	}
 
 }
