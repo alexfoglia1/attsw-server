@@ -8,9 +8,6 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
-
-
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -26,6 +23,7 @@
 		<jacoco.report.path>${project.reporting.outputDirectory}/jacocout</jacoco.report.path>
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.modules>client,server,end2end</sonar.modules>
 	</properties>
 
 	<dependencies>
