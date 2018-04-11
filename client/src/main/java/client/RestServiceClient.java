@@ -26,8 +26,6 @@ public class RestServiceClient implements IRestServiceClient {
 		int result = 1;
 		result = prime * result + resp;
 		result = prime * result + ((urlToAll == null) ? 0 : urlToAll.hashCode());
-		result = prime * result + ((urlToGrid == null) ? 0 : urlToGrid.hashCode());
-		result = prime * result + ((urlToPath == null) ? 0 : urlToPath.hashCode());
 		return result;
 	}
 
@@ -44,16 +42,6 @@ public class RestServiceClient implements IRestServiceClient {
 			if (other.urlToAll != null)
 				return false;
 		} else if (!urlToAll.equals(other.urlToAll))
-			return false;
-		if (urlToGrid == null) {
-			if (other.urlToGrid != null)
-				return false;
-		} else if (!urlToGrid.equals(other.urlToGrid))
-			return false;
-		if (urlToPath == null) {
-			if (other.urlToPath != null)
-				return false;
-		} else if (!urlToPath.equals(other.urlToPath))
 			return false;
 		return true;
 	}
