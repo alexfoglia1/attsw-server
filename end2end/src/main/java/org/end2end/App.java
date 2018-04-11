@@ -1,13 +1,12 @@
 package org.end2end;
 
-/**
- * Hello world!
- *
- */
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class App 
 {
 	public static void main( String[] args )
 	{
-		System.out.println( "Hello World!" );
+		Logger.getGlobal().log(Level.ALL, "End To End Tests must be runned as Junit test cases", "");
 	}
 }
