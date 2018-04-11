@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
@@ -50,6 +52,17 @@ public class RestControllerTest {
 	public void testDeleteAll() throws Exception {
 		mvc.perform(get("/cleardb").with(httpBasic("user","password"))).andExpect(status().isOk());
 		verify(gridService,times(1)).deleteAll();
+	}
+	@Test
+	public void testPopuleIsSecured() throws Exception {
+		mvc.perform(get("/populate")).andExpect(status().is4xxClientError());
+	}
+	
+	@Test
+	public void testPopule() throws Exception {
+		mvc.perform(get("/populate").with(httpBasic("user","password"))).andExpect(status().isOk());
+		verify(gridService,times(1)).deleteAll();
+		verify(gridService,times(3)).storeInDb(anyInt(), anyObject());
 	}
 	
 	@Test
