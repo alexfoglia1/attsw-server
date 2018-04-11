@@ -40,8 +40,6 @@ public class RestServiceClient implements IRestServiceClient {
 		if (getClass() != obj.getClass())
 			return false;
 		RestServiceClient other = (RestServiceClient) obj;
-		if (resp != other.resp)
-			return false;
 		if (urlToAll == null) {
 			if (other.urlToAll != null)
 				return false;

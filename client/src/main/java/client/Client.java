@@ -30,10 +30,6 @@ public class Client implements IClient {
 		return (List<String>)(gson.fromJson(rcv, List.class));
 	}
 
-	public void setRestServiceClient(IRestServiceClient restServiceClient) {
-		this.restclient = restServiceClient;
-	}
-
 	@Override
 	public boolean tryConnection() {
 		try {

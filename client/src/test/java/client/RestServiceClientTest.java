@@ -5,6 +5,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 
@@ -54,6 +55,7 @@ public class RestServiceClientTest {
 		fixture.doGet(-1, null);
 	}
 
+	
 	@Test
 	public void testDoGetRequestAllOk() throws IOException {
 		stubResponse("/api/", "[1,2,3,4,5]", 200);
@@ -113,5 +115,18 @@ public class RestServiceClientTest {
 		stubResponse("/api/pathATOBINgrid2", "Error", 500);
 		fixture.doGet(3, "ATOBINgrid2");
 	}
-
+	@Test
+	public void testAutoEqualsGeneration() {
+		RestServiceClient rs1=new RestServiceClient("test");
+		RestServiceClient rs2=new RestServiceClient("test");
+		RestServiceClient rs3=new RestServiceClient("");
+		RestServiceClient rs4=new RestServiceClient(null);
+		assertEquals(rs1,rs1);
+		assertEquals(rs1,rs2);
+		assertNotEquals(rs1,null);
+		assertNotEquals(rs1,new Object());
+		assertNotEquals(rs1,rs3);
+		assertNotEquals(rs1,rs4);
+		assertEquals(rs1.hashCode(),rs2.hashCode());
+	}
 }
