@@ -39,19 +39,7 @@ public class AWebController {
 
 	@PostMapping("/addtable") 
 	public String addtable(@ModelAttribute UserContent content, Model mod) {
-		int n = content.getNumber();
-		String stringaVal = content.getContent();
-		int[][] matrix;
-		if(stringaVal == "") {
-			for(int i = 0; i < n*n; i++) {
-				stringaVal += "0";
-			}
-			content.setContent(stringaVal);
-			matrix=content.parseMatrix();
-		} else {
-			matrix=content.parseMatrix();
-		}
-		service.storeInDb(n,matrix);
+		service.storeInDb(content.getNumber(),content.parseMatrix());
 		return "redirect:/viewdb";
 	}
 
