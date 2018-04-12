@@ -19,10 +19,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<jacoco.data.file>${project.build.directory}/coveragereports/jacoco.exec</jacoco.data.file>
+		<jacoco.data.file>${project.build.directory}/target/jacoco.exec</jacoco.data.file>
 		<jacoco.report.path>${project.reporting.outputDirectory}/jacocout</jacoco.report.path>
 		<sonar.language>java</sonar.language>
-		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.jacoco.reportPaths>${project.reporting.outputDirectory}/jacoco.xml</sonar.jacoco.reportPaths>
 	</properties>
 
 	<dependencies>
