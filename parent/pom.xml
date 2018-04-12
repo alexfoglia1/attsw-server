@@ -103,12 +103,25 @@
 						</configuration>
 						<executions>
 							<execution>
+								<id>pre-unit-test</id>
 								<goals>
-									<!-- binds by default to the phase "initialize" -->
 									<goal>prepare-agent</goal>
-									<!-- binds by default to the phase "verify" -->
+								</goals>
+								<configuration>
+									<destFile>${jacoco.data.file}</destFile>
+									<propertyName>surefireArgLine</propertyName>
+								</configuration>
+							</execution>
+							<execution>
+								<id>post-unit-test</id>
+								<phase>test</phase>
+								<goals>
 									<goal>report</goal>
 								</goals>
+								<configuration>
+									<dataFile>${jacoco.data.file}</dataFile>
+									<outputDirectory>${jacoco.report.path}</outputDirectory>
+								</configuration>
 							</execution>
 						</executions>
 					</plugin>
