@@ -23,6 +23,14 @@
 		<jacoco.report.path>${project.reporting.outputDirectory}/jacoco.xml</jacoco.report.path>
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.coverage.exclusions>
+			**/ServerApplication.*,
+			**/DatabaseGrid.*,
+			**/GridFromServer.*,
+			**/WebSecurityConfig.*,
+			**/MyRuntimeException.*,
+			**/App.*
+		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -97,7 +105,7 @@
 								<exclude>**/DatabaseGrid.*</exclude>
 								<exclude>**/WebSecurityConfig.*</exclude>
 								<exclude>**/App.*</exclude>
-								<exclude>**/DatabaseGrid.*</exclude>
+								<exclude>**/MyRuntimeException.*</exclude>
 								<exclude>**/GridFromServer.*</exclude>
 							</excludes>
 						</configuration>
