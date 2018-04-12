@@ -24,13 +24,13 @@ public class ClientEnd2EndIT {
 	private static FrameFixture window;
 	private static GUI frame;
 	private static HtmlUnitDriver browser;
-
+	private static SpringApplicationBuilder builder1;
 	@BeforeClass
 	public static void setupClass() {
 		frame = GuiActionRunner.execute(() -> GUI.createGui(false));
 		window = new FrameFixture(frame.getFrame());
 		window.show();
-		SpringApplicationBuilder builder1 = new SpringApplicationBuilder(ServerApplication.class);
+		builder1 = new SpringApplicationBuilder(ServerApplication.class);
 		builder1.run(new String[] { "" });
 		browser = new HtmlUnitDriver() {
 			protected WebClient modifyWebClient(WebClient client) {
@@ -41,7 +41,6 @@ public class ClientEnd2EndIT {
 			}
 		};
 	}
-
 	@Test
 	public void testConnection() {
 		window.textBox("portField").setText("8080");

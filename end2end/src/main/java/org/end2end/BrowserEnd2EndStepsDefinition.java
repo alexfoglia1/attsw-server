@@ -27,17 +27,17 @@ public class BrowserEnd2EndStepsDefinition {
 
 	@Given("^The database is empty$")
 	public void the_database_is_empty() throws Throwable {
-		browser.get("http://localhost:8080/cleardb");
+		browser.get("http://localhost:9999/cleardb");
 	}
 
 	@Given("^The database is not empty$")
 	public void the_database_is_not_empty() throws Throwable {
-		browser.get("http://localhost:8080/populate");
+		browser.get("http://localhost:9999/populate");
 	}
 
 	@When("^The user is on Home Page$")
 	public void the_user_is_on_Home_Page() throws Throwable {
-		browser.get("http://localhost:8080/viewdb");
+		browser.get("http://localhost:9999/viewdb");
 	}
 
 	@Then("^A message \"(.*?)\" must be shown$")
@@ -49,7 +49,7 @@ public class BrowserEnd2EndStepsDefinition {
 	public void a_list_of_grids_must_be_shown_with_a_deletion_link() throws Throwable {
 		WebElement table = browser.findElementById("grid_table");
 		assertTableAsExpected("ID N (.*?) 0 Delete (.*?) 1 Delete (.*?) 3 Delete",table.getText());
-		browser.get("http://localhost:8080/cleardb");
+		browser.get("http://localhost:9999/cleardb");
 	}
 
 	private void assertTableAsExpected(String regex, String html) {
@@ -58,7 +58,7 @@ public class BrowserEnd2EndStepsDefinition {
 	
 	@When("^The user deletes one grid$")
 	public void the_user_deletes_one_grid() throws Throwable {
-		browser.get("http://localhost:8080/viewdb");
+		browser.get("http://localhost:9999/viewdb");
 		List<WebElement> buttons=browser.findElementsByLinkText("Delete");
 		buttons.get(0).click();
 	}
@@ -67,7 +67,7 @@ public class BrowserEnd2EndStepsDefinition {
 	public void a_list_of_grids_must_be_shown_where_there_is_not_the_deleted_grid() throws Throwable {
 		WebElement table = browser.findElementById("grid_table");
 		assertTableAsExpected("ID N (.*?) 1 Delete (.*?) 3 Delete",table.getText());
-		browser.get("http://localhost:8080/cleardb");
+		browser.get("http://localhost:9999/cleardb");
 	}
 	
 	@Given("^The server is running$")
@@ -80,7 +80,7 @@ public class BrowserEnd2EndStepsDefinition {
 
 	@When("^The user connects to the server$")
 	public void the_user_connects_to_the_server() throws Throwable {
-	    browser.get("http://localhost:8080");
+	    browser.get("http://localhost:9999");
 	}
 
 	@Then("^A welcome page with link to view db and insert table must be shown$")
@@ -89,14 +89,14 @@ public class BrowserEnd2EndStepsDefinition {
 		assertTrue(browser.getPageSource().contains("Manage Database"));
 		browser.findElementByLinkText("View contents").click();
 		assertEquals("Database Contents View",browser.getTitle());
-		browser.get("http://localhost:8080");
+		browser.get("http://localhost:9999");
 		browser.findElementByLinkText("Add table").click();
 		assertEquals("Add Table",browser.getTitle());
 	}
 
 	@When("^The user inserts one grid$")
 	public void the_user_inserts_one_grid() throws Throwable {
-	   browser.get("http://localhost:8080/addtable");
+	   browser.get("http://localhost:9999/addtable");
 	   assertTrue(browser.getPageSource().contains("Choose the size of the matrix"));
 	   WebElement insertNumber=browser.findElementById("fname");
 	   insertNumber.sendKeys("1");
@@ -108,7 +108,7 @@ public class BrowserEnd2EndStepsDefinition {
 	   assertEquals("Database Contents View",browser.getTitle());
 	   WebElement table = browser.findElementById("grid_table");
 	   assertTableAsExpected("ID N (.*?) 1 Delete",table.getText());
-	   browser.get("http://localhost:8080/cleardb");
+	   browser.get("http://localhost:9999/cleardb");
 	}
 
 }
