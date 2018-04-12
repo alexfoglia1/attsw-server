@@ -33,6 +33,7 @@ public class ClientEnd2EndIT {
 		builder1 = new SpringApplicationBuilder(ServerApplication.class);
 		builder1.run(new String[] { "" });
 		browser = new HtmlUnitDriver() {
+			@Override
 			protected WebClient modifyWebClient(WebClient client) {
 				DefaultCredentialsProvider creds = new DefaultCredentialsProvider();
 				creds.addCredentials("user", "password");
