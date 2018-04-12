@@ -21,8 +21,7 @@ before_install:
       sh -e /etc/init.d/xvfb start;
     
 script:
-  - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report
-  - mvn -f parent/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report sonar:sonar
   - mvn -f parent/pom.xml clean verify -Pfailsafe
  
 after_failure:
