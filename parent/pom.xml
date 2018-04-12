@@ -22,7 +22,7 @@
 		<jacoco.data.file>${project.build.directory}/target/jacoco.exec</jacoco.data.file>
 		<jacoco.report.path>${project.reporting.outputDirectory}/jacocout</jacoco.report.path>
 		<sonar.language>java</sonar.language>
-		<sonar.jacoco.reportPaths>${project.reporting.outputDirectory}/jacoco.xml</sonar.jacoco.reportPaths>
+		<sonar.jacoco.reportPaths>${project.reporting.outputDirectory}/jacocout/jacoco.xml</sonar.jacoco.reportPaths>
 	</properties>
 
 	<dependencies>
