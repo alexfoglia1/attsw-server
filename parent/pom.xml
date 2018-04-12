@@ -29,6 +29,7 @@
 			**/GridFromServer.*,
 			**/WebSecurityConfig.*,
 			**/MyRuntimeException.*,
+			**/BrowserEnd2EndStepsDefinition.*,
 			**/App.*
 		</sonar.coverage.exclusions>
 	</properties>
@@ -106,6 +107,7 @@
 								<exclude>**/WebSecurityConfig.*</exclude>
 								<exclude>**/App.*</exclude>
 								<exclude>**/MyRuntimeException.*</exclude>
+								<exclude>**/BrowserEnd2EndStepsDefinition.*</exclude>
 								<exclude>**/GridFromServer.*</exclude>
 							</excludes>
 						</configuration>
@@ -136,11 +138,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
-						<configuration>
-							<includes>
-								<include>**/*IT.java</include>
-							</includes>
-						</configuration>
 						<executions>
 							<execution>
 								<phase>integration-test</phase>

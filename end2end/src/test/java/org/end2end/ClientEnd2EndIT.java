@@ -19,7 +19,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import client.gui.GUI;
 import client.gui.GUIpanel;
 
-public class End2EndIT {
+public class ClientEnd2EndIT {
 
 	private static FrameFixture window;
 	private static GUI frame;
