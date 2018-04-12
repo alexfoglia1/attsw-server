@@ -22,7 +22,8 @@ before_install:
     
 script:
   - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report
-  - mvn -f parent/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f client/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f server/pom.xml clean verify -Pjacoco sonar:sonar
   - mvn -f parent/pom.xml clean verify -Pfailsafe
  
 after_failure:
