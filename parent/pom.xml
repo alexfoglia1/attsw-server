@@ -19,17 +19,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<jacoco.data.file>${project.build.directory}/jacoco.exec</jacoco.data.file>
-		<jacoco.report.path>${project.reporting.outputDirectory}</jacoco.report.path>
+		<jacoco.data.file>${project.build.directory}/coveragereports/jacoco.exec</jacoco.data.file>
+		<jacoco.report.path>${project.reporting.outputDirectory}/jacocout</jacoco.report.path>
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
-		<sonar.coverage.exclusions>
-			**/ServerApplication.*,
-			**/DatabaseGrid.*,
-			**/WebSecurityConfig.*,
-			**/App.*,
-			**/GridFromSever.*
-		</sonar.coverage.exclusions>
 	</properties>
 
 	<dependencies>
@@ -58,7 +51,7 @@
 						<configuration>
 							<classifier>exec</classifier>
 						</configuration>
-					</execution>
+					</execution> 
 				</executions>
 			</plugin>
 		</plugins>
@@ -74,7 +67,6 @@
 
 				<pluginManagement>
 					<plugins>
-
 						<plugin>
 							<groupId>org.eluder.coveralls</groupId>
 							<artifactId>coveralls-maven-plugin</artifactId>
@@ -85,13 +77,6 @@
 								</jacocoReports>
 							</configuration>
 						</plugin>
-
-						<plugin>
-							<groupId>org.sonarsource.scanner.maven</groupId>
-							<artifactId>sonar-maven-plugin</artifactId>
-							<version>3.4.0.905</version>
-						</plugin>
-
 					</plugins>
 				</pluginManagement>
 
@@ -111,35 +96,13 @@
 							</excludes>
 						</configuration>
 						<executions>
-							<!-- Prepares the property pointing to the JaCoCo runtime agent which 
-								is passed as VM argument when Maven the Surefire plugin is executed. -->
 							<execution>
-								<id>pre-unit-test</id>
 								<goals>
+									<!-- binds by default to the phase "initialize" -->
 									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<!-- Sets the path to the file which contains the execution data. -->
-									<destFile>${jacoco.data.file}</destFile>
-									<!-- Sets the name of the property containing the settings for JaCoCo 
-										runtime agent. -->
-									<propertyName>surefireArgLine</propertyName>
-								</configuration>
-							</execution>
-							<!-- Ensures that the code coverage report for unit tests is created 
-								after unit tests have been run. -->
-							<execution>
-								<id>post-unit-test</id>
-								<phase>test</phase>
-								<goals>
+									<!-- binds by default to the phase "verify" -->
 									<goal>report</goal>
 								</goals>
-								<configuration>
-									<!-- Sets the path to the file which contains the execution data. -->
-									<dataFile>${jacoco.data.file}</dataFile>
-									<!-- Sets the output directory for the code coverage report. -->
-									<outputDirectory>${jacoco.report.path}</outputDirectory>
-								</configuration>
 							</execution>
 						</executions>
 					</plugin>
