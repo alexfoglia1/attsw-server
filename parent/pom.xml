@@ -51,7 +51,7 @@
 						<configuration>
 							<classifier>exec</classifier>
 						</configuration>
-					</execution> 
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
@@ -76,6 +76,12 @@
 									<jacocoReport>${project.reporting.outputDirectory}/jacoco.xml</jacocoReport>
 								</jacocoReports>
 							</configuration>
+						</plugin>
+
+						<plugin>
+							<groupId>org.sonarsource.scanner.maven</groupId>
+							<artifactId>sonar-maven-plugin</artifactId>
+							<version>3.4.0.905</version>
 						</plugin>
 					</plugins>
 				</pluginManagement>
