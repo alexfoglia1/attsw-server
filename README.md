@@ -1,12 +1,10 @@
-# Project of ATTSW
+# ATTSW Project
 
-# Academic Year 2017/18
-
-# Univ. Firenze - Informatica
+# Academic Year 2017/18 - Univ. Firenze
 
 Authors: Tommaso Puccetti, Alex Foglia, Francesco Secci
 
-This is a multi-module maven project. Server handles a database of grids, client retrieve those grids and asks to the server eventually minimal paths in the grids it receives. End2End is a module containing only client-server end to end tests.
+This is a multi-module maven project developed for ATTSW exam. Server handles a database of grids, client retrieve those grids and asks to the server eventually minimal paths in the grids it receives. End2End is a module containing only client-server end to end tests.
 
 
 In order to automatize integration, we used Travis:
