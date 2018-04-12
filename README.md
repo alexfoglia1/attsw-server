@@ -1,4 +1,8 @@
-# Project of ATTSW Academic Year 2017/18 - Univ. Firenze - Informatica
+# Project of ATTSW
+
+# Academic Year 2017/18
+
+# Univ. Firenze - Informatica
 
 Authors: Tommaso Puccetti, Alex Foglia, Francesco Secci
 
