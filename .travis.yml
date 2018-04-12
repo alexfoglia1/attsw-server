@@ -12,7 +12,7 @@ addons:
   sonarcloud:
     organization: "pufose-attsw"
     token:
-        secure: "ZT7EcIpyoDcJ5eAFuBqztCH3B4wkxvlLyqlxGygy/giFCcUMRK8R73BSy+PK4+hXXIj184gW0pK+X4UbbFpsWj00PGuSs9GYmTlOMp4071gUC38PQdconqIj5GWfKhWCY5ogBBZOchv/ND/cBQQPKAH8ShBL1OK6JPTdV2/Ptti0D1apiWAOgEvaESouVHdkCvp/gJeCOy9PG+jG+WE5OIDgxBKZFyfs2uCkgXUk6X2V4n2qaFgnJY397t5M292DpSkdJ7cETqswtFpokb1MQWn1OfIUdkepGJnlwmEKztRk41ZpG8Z3hQhMbebNaxzz+mGtq/5did81CY1w3/3rMvKF72Y9gngkVYimBp6wbAKbX4OcZc3RG8xUsMsVPqfZqGeIZcXIT1eJJLJVqEXiv4dFZxlqY4DnRXDCapY3Vy9kLdb65Va2OLOgjYdHYvUwWdeFc+6/5fS+hiRlWFDnDZpfEZuMdphHVBgWl+YdnPM4ESkAxPnwosDy1jMok56WYABKxYW64O67K27d/dhqoNgt3H6eMDsOAbbDpO006M+M8uONTlBeYHBHEnTZpG6lxnXRMfoSzmlkyPxhsKSMszefhVf4Lwxyo5mzoL7zzlHMbhDfQSrTYndMDh5KvtY3yBpz5sb8uQbcARqvxiUygqr0mhNaHqufVLfNHq8n9q8="
+      secure: "ZT7EcIpyoDcJ5eAFuBqztCH3B4wkxvlLyqlxGygy/giFCcUMRK8R73BSy+PK4+hXXIj184gW0pK+X4UbbFpsWj00PGuSs9GYmTlOMp4071gUC38PQdconqIj5GWfKhWCY5ogBBZOchv/ND/cBQQPKAH8ShBL1OK6JPTdV2/Ptti0D1apiWAOgEvaESouVHdkCvp/gJeCOy9PG+jG+WE5OIDgxBKZFyfs2uCkgXUk6X2V4n2qaFgnJY397t5M292DpSkdJ7cETqswtFpokb1MQWn1OfIUdkepGJnlwmEKztRk41ZpG8Z3hQhMbebNaxzz+mGtq/5did81CY1w3/3rMvKF72Y9gngkVYimBp6wbAKbX4OcZc3RG8xUsMsVPqfZqGeIZcXIT1eJJLJVqEXiv4dFZxlqY4DnRXDCapY3Vy9kLdb65Va2OLOgjYdHYvUwWdeFc+6/5fS+hiRlWFDnDZpfEZuMdphHVBgWl+YdnPM4ESkAxPnwosDy1jMok56WYABKxYW64O67K27d/dhqoNgt3H6eMDsOAbbDpO006M+M8uONTlBeYHBHEnTZpG6lxnXRMfoSzmlkyPxhsKSMszefhVf4Lwxyo5mzoL7zzlHMbhDfQSrTYndMDh5KvtY3yBpz5sb8uQbcARqvxiUygqr0mhNaHqufVLfNHq8n9q8="
 
 env:
   - DISPLAY=:99.0
@@ -22,7 +22,7 @@ before_install:
     
 script:
   - mvn -f parent/pom.xml clean verify -Pjacoco coveralls:report
-  - mvn -f client/pom.xml clean verify -Pjacoco sonar:sonar
+  - mvn -f parent/pom.xml clean verify -Pjacoco sonar:sonar
   - mvn -f parent/pom.xml clean verify -Pfailsafe
  
 after_failure:
