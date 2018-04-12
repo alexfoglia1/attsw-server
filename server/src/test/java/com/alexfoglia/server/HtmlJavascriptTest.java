@@ -43,7 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
 @RunWith(SpringRunner.class)
 @WebMvcTest(controllers = AWebController.class)
 @Import(WebSecurityConfig.class)
-public class GridHtmlUnitTest {
+public class HtmlJavascriptTest {
 
 	@Autowired
 	private WebClient webClient;
