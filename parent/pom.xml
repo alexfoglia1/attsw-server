@@ -20,9 +20,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jacoco.data.file>${project.build.directory}/coveragereports/jacoco.exec</jacoco.data.file>
-		<jacoco.report.path>${project.reporting.outputDirectory}/jacocout</jacoco.report.path>
+		<jacoco.report.path>${project.reporting.outputDirectory}/jacoco.xml</jacoco.report.path>
 		<sonar.language>java</sonar.language>
-		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.jacoco.reportPaths>${jacoco.report.path}</sonar.jacoco.reportPaths>
 	</properties>
 
 	<dependencies>
@@ -73,7 +73,7 @@
 							<version>4.3.0</version>
 							<configuration>
 								<jacocoReports>
-									<jacocoReport>${project.reporting.outputDirectory}/jacoco.xml</jacocoReport>
+									<jacocoReport>${jacoco.report.path}</jacocoReport>
 								</jacocoReports>
 							</configuration>
 						</plugin>
