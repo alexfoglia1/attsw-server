@@ -6,6 +6,7 @@ import static org.hamcrest.CoreMatchers.is;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +35,12 @@ public class RestControllerIT {
 		url = "http://localhost:" + port;
 		srv.deleteAll();
 	}
-
+	
+	@After
+	public void teardown() {
+		srv.deleteAll();
+	}
+	
 	@Test
 	public void testGetAllNamesWhenNoGridExists() throws Exception {
 		given().when().get(url + "/api").then().statusCode(200).assertThat().body(is("[]"));
