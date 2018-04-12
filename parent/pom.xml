@@ -81,7 +81,7 @@
 							<version>4.3.0</version>
 							<configuration>
 								<jacocoReports>
-									<jacocoReport>${jacoco.report.path}/jacoco.xml</jacocoReport>
+									<jacocoReport>${project.reporting.outputDirectory}/jacoco.xml</jacocoReport>
 								</jacocoReports>
 							</configuration>
 						</plugin>
