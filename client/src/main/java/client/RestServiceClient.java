@@ -19,15 +19,6 @@ public class RestServiceClient implements IRestServiceClient {
 		this.urlToPath = urlToApi + "path";
 		this.resp=0;
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + resp;
-		result = prime * result + ((urlToAll == null) ? 0 : urlToAll.hashCode());
-		return result;
-	}
 
 	@Override
 	public boolean equals(Object obj) {

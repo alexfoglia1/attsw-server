@@ -189,7 +189,7 @@ public class GUI {
 			requestAll();
 		} else if (actions.getSelectedIndex() == 1) {
 			caseRequestGrid((String) comboCity.getSelectedItem());
-		} else if (actions.getSelectedIndex() == 2) {
+		} else {
 			caseRequestPath(txtsource.getText(), txtsink.getText(), (String) comboCity.getSelectedItem());
 		}
 	}

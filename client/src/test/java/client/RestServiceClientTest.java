@@ -129,6 +129,6 @@ public class RestServiceClientTest {
 		assertNotEquals(rs1,rs4);
 		assertNotEquals(rs4,rs1);
 		assertEquals(rs4,new RestServiceClient(null));
-		assertEquals(rs1.hashCode(),rs2.hashCode());
+		
 	}
 }
