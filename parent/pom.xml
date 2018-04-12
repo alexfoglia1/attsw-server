@@ -51,7 +51,7 @@
 						<configuration>
 							<classifier>exec</classifier>
 						</configuration>
-					</execution> 
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
@@ -77,36 +77,34 @@
 								</jacocoReports>
 							</configuration>
 						</plugin>
+
+						<plugin>
+							<groupId>org.jacoco</groupId>
+							<artifactId>jacoco-maven-plugin</artifactId>
+							<version>0.7.9</version>
+							<configuration>
+								<excludes>
+									<exclude>**/ServerApplication.*</exclude>
+									<exclude>**/DatabaseGrid.*</exclude>
+									<exclude>**/WebSecurityConfig.*</exclude>
+									<exclude>**/App.*</exclude>
+									<exclude>**/DatabaseGrid.*</exclude>
+									<exclude>**/GridFromServer.*</exclude>
+								</excludes>
+							</configuration>
+							<executions>
+								<execution>
+									<goals>
+										<!-- binds by default to the phase "initialize" -->
+										<goal>prepare-agent</goal>
+										<!-- binds by default to the phase "verify" -->
+										<goal>report</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
 					</plugins>
 				</pluginManagement>
-
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.7.9</version>
-						<configuration>
-							<excludes>
-								<exclude>**/ServerApplication.*</exclude>
-								<exclude>**/DatabaseGrid.*</exclude>
-								<exclude>**/WebSecurityConfig.*</exclude>
-								<exclude>**/App.*</exclude>
-								<exclude>**/DatabaseGrid.*</exclude>
-								<exclude>**/GridFromServer.*</exclude>
-							</excludes>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<!-- binds by default to the phase "initialize" -->
-									<goal>prepare-agent</goal>
-									<!-- binds by default to the phase "verify" -->
-									<goal>report</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
 			</build>
 		</profile>
 
