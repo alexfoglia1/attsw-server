@@ -3,7 +3,7 @@ Feature: Grids listing and deleting
 Scenario: List no grids
 	Given The database is empty
 	When The user is on Home Page
-	Then A message "No empolyee" must be shown
+	Then A message "No grids" must be shown
 	
 Scenario: List some grids
 	Given The database is not empty
