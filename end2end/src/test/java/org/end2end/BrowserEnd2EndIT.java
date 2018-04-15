@@ -16,6 +16,7 @@ public class BrowserEnd2EndIT {
 	@BeforeClass
 	public static void setupClass() {
 		SpringApplicationBuilder builder = new SpringApplicationBuilder(ServerApplication.class);
+		builder.headless(false);
 		builder.run(new String[] { "--server.port=9999" });
 	}
 

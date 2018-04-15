@@ -7,6 +7,7 @@ import java.awt.Color;
 import org.assertj.swing.edt.GuiActionRunner;
 import org.assertj.swing.fixture.FrameFixture;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -21,16 +22,15 @@ import client.gui.GUIpanel;
 
 public class ClientEnd2EndIT {
 
-	private static FrameFixture window;
-	private static GUI frame;
+	private FrameFixture window;
+	private GUI frame;
 	private static HtmlUnitDriver browser;
 	private static SpringApplicationBuilder builder1;
 	@BeforeClass
 	public static void setupClass() {
-		frame = GuiActionRunner.execute(() -> GUI.createGui(false));
-		window = new FrameFixture(frame.getFrame());
-		window.show();
+		
 		builder1 = new SpringApplicationBuilder(ServerApplication.class);
+		builder1.headless(false);
 		builder1.run(new String[] { "" });
 		browser = new HtmlUnitDriver() {
 			@Override
@@ -41,6 +41,12 @@ public class ClientEnd2EndIT {
 				return client;
 			}
 		};
+	}
+	@Before
+	public void setUp() {
+		frame = GuiActionRunner.execute(() -> GUI.createGui(false));
+		window = new FrameFixture(frame.getFrame());
+		window.show();
 	}
 	@Test
 	public void testConnection() {
@@ -139,7 +145,7 @@ public class ClientEnd2EndIT {
 	@After
 	public void reset() {
 		browser.get("http://localhost:8080/cleandb");
-		window.button("btnReset").click();
+		window.cleanUp();
 	}
 
 
