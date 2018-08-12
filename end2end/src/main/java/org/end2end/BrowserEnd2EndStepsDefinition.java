@@ -47,7 +47,7 @@ public class BrowserEnd2EndStepsDefinition {
 
 	@Then("^A message \"(.*?)\" must be shown$")
 	public void amessagemustbeshown(String arg1)  {
-		assertTrue(browser.getPageSource().contains("No Grids"));
+		assertTrue(browser.getPageSource().contains(arg1));
 	}
 
 	@Then("^A list of grids must be shown with a deletion link$")

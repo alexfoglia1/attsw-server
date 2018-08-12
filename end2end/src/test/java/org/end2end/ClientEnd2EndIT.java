@@ -98,14 +98,15 @@ public class ClientEnd2EndIT {
 		retrieveAllGrids();
 		requestAGrid();
 		GUIpanel pan=getGuiPanel();
+		//---FIRST LINE RED RED RED---
 		assertEquals(Color.RED, pan.getColorInPoint(0, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(0, 1));
 		assertEquals(Color.RED, pan.getColorInPoint(0, 2));
-
+		//--SECOND LINE RED BLACK RED---
 		assertEquals(Color.RED, pan.getColorInPoint(1, 0));
 		assertEquals(Color.BLACK, pan.getColorInPoint(1, 1));
 		assertEquals(Color.RED, pan.getColorInPoint(1, 2));
-
+		//--THIRD LINE RED RED BLACK--
 		assertEquals(Color.RED, pan.getColorInPoint(2, 0));
 		assertEquals(Color.RED, pan.getColorInPoint(2, 1));
 		assertEquals(Color.BLACK, pan.getColorInPoint(2, 2));
