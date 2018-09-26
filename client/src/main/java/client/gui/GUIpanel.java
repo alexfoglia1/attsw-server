@@ -2,15 +2,15 @@ package client.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.List;
 
-import javax.swing.JPanel;
+public class GUIpanel extends AbstractGUIPanel {
 
-public class GUIpanel extends JPanel {
-
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private Point[][] grid;
 	private Color[][] gridColor;
@@ -104,23 +104,7 @@ public class GUIpanel extends JPanel {
 		gridColor[i][j] = (col);
 	}
 
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-		for (int i = 0; i < gridSize; i++) {
-			for (int j = 0; j < gridSize; j++) {
-				drawOne(g, i, j);
-			}
-		}
-	}
-
-	private void drawOne(Graphics g, int i, int j) {
-		g.setColor(gridColor[i][j]);
-		g.fillOval((int) grid[i][j].getX() - 8 / 2, (int) grid[i][j].getY() - 8 / 2, 8, 8);
-		g.setFont(g.getFont().deriveFont(Font.BOLD));
-		g.drawString(gridNames[i][j], (int) grid[i][j].getX() + 8 / 2, (int) grid[i][j].getY() - 8 / 2);
-	}
+	
 
 	public void highlightPath(List<String> path) {
 		if (path == null) {
@@ -195,6 +179,26 @@ public class GUIpanel extends JPanel {
 
 	public Point[][] getAllLocations() {
 		return grid.clone();
+	}
+
+	@Override
+	public String[][] getGridNames() {
+		return gridNames;
+	}
+
+	@Override
+	public Color[][] getGridColor() {
+		return gridColor;
+	}
+
+	@Override
+	public int gridSize() {
+		return gridSize;
+	}
+
+	@Override
+	public Point[][] getGrid() {
+		return grid;
 	}
 
 }
