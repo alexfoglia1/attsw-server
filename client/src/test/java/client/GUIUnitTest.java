@@ -52,10 +52,11 @@ public class GUIUnitTest {
 	@Test
 	public void testCreateConnector() {
 		IRestServiceClient expected = new RestServiceClient("http://localhost:8080/api/");
-		assertEqualityOfRestServiceClient(expected);
+		String expectedHost = expected.getHost();
+		assertEqualityOfRestServiceClient(expectedHost);
 		assertFalse(frame.isConnCreated());
 		runServerToVerifyCreationOfConnector();
-		assertEqualityOfRestServiceClient(expected);
+		assertEqualityOfRestServiceClient(expectedHost);
 		assertTrue(frame.isConnCreated());
 	}
 	private void runServerToVerifyCreationOfConnector() {
@@ -68,10 +69,10 @@ public class GUIUnitTest {
 						.withHeader("Content-Type", "application/json")
 						.withBody("")));
 	}
-	private void assertEqualityOfRestServiceClient(IRestServiceClient expected) {
+	private void assertEqualityOfRestServiceClient(String expectedHost) {
 		frame.createConnection("localhost", "8080");
 		IRestServiceClient actual = frame.getClient().getRestServiceClient();
-		assertEquals(expected, actual);
+		assertEquals(expectedHost, actual.getHost());
 	}
 
 	@Test

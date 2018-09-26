@@ -84,4 +84,10 @@ public class RestServiceClient implements IRestServiceClient {
 		return this.resp;
 	}
 
+	@Override
+	public String getHost() {
+		return urlToAll;
+	}
+
+
 }
