@@ -27,6 +27,7 @@
 			**/ServerApplication.*,
 			**/DatabaseGrid.*,
 			**/GridFromServer.*,
+			**/AbstractGUIPanel.*,
 			**/WebSecurityConfig.*,
 			**/MyRuntimeException.*,
 			**/BrowserEnd2EndStepsDefinition.*,
@@ -106,6 +107,7 @@
 								<exclude>**/DatabaseGrid.*</exclude>
 								<exclude>**/WebSecurityConfig.*</exclude>
 								<exclude>**/App.*</exclude>
+								<exclude>**/AbstractGUIPanel.*</exclude>
 								<exclude>**/MyRuntimeException.*</exclude>
 								<exclude>**/BrowserEnd2EndStepsDefinition.*</exclude>
 								<exclude>**/GridFromServer.*</exclude>
