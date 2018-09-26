@@ -21,14 +21,15 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>server</artifactId>
+			<artifactId>client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>client</artifactId>
+			<artifactId>server</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

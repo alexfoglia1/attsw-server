@@ -115,22 +115,5 @@ public class RestServiceClientTest {
 		stubResponse("/api/pathATOBINgrid2", "Error", 500);
 		fixture.doGet(3, "ATOBINgrid2");
 	}
-	@Test
-	public void testAutoEqualsGeneration() {
-		RestServiceClient rs1=new RestServiceClient("test");
-		RestServiceClient rs2=new RestServiceClient("test");
-		RestServiceClient rs3=new RestServiceClient("");
-		RestServiceClient rs4=new RestServiceClient(null);
-		assertEquals(rs1,rs1);
-		assertEquals(rs1,rs2);
-		assertNotEquals(rs1,null);
-		assertNotEquals(rs1,new Object());
-		assertNotEquals(rs1,rs3);
-		assertNotEquals(rs1,rs4);
-		assertNotEquals(rs4,rs1);
-		assertEquals(rs4,new RestServiceClient(null));
-		assertEquals(rs1.hashCode(),rs2.hashCode());
-		assertNotEquals(rs1.hashCode(),rs3.hashCode());
-		assertNotEquals(rs1.hashCode(),rs4.hashCode());
-	}
+	
 }
