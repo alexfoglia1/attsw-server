@@ -37,6 +37,8 @@ public class GUIpanelTest {
 		Dimension min=pan.getMinimumSize();
 		Dimension size=pan.getSize();
 		Dimension expected=new Dimension(512,512);
+		String[][] names = pan.getGridNames();
+		Color[][] cols = pan.getGridColor();
 		assertEquals(pan.getWidth()/2-(GRIDSIZE*pan.getDistance()/4),pan.getOffsetX());
 		assertEquals(pan.getHeight()/2-(GRIDSIZE*pan.getDistance()/4),pan.getOffsetY());
 		assertEquals(Color.WHITE,c);
@@ -44,12 +46,17 @@ public class GUIpanelTest {
 		assertEquals(expected,min);
 		assertEquals(expected,size);
 		assertEquals((int)(8*Math.sqrt(GRIDSIZE)),pan.getDistance());
+		Color expectedcol = pan.getBackground();
 		for(int i=0; i<GRIDSIZE;i++) {
 			for(int j=0; j<GRIDSIZE;j++) {
 				Point Expected=new Point(pan.getOffsetX()+i*pan.getDistance(),pan.getOffsetY()+j*pan.getDistance());
 				assertEquals(Expected,pan.getLocationOf(j, i));
+				assertEquals("",names[i][j]);
+				assertEquals(expectedcol,cols[i][j]);
 			}
 		}
+		assertEquals(GRIDSIZE,pan.gridSize());
+		
 	}
 
 	@Test
