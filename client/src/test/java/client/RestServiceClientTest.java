@@ -5,7 +5,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.get;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 
@@ -45,7 +44,7 @@ public class RestServiceClientTest {
 
 	@Test
 	public void testConstructorOk() {
-		assertEquals("http://localhost:8000/api/", fixture.getUrlToAll());
+		assertEquals("http://localhost:8000/api/", fixture.getHost());
 		assertEquals("http://localhost:8000/api/grid", fixture.getUrlToGrid());
 		assertEquals("http://localhost:8000/api/path", fixture.getUrlToPath());
 	}

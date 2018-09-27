@@ -71,7 +71,7 @@ public class RestServiceClient implements IRestServiceClient {
 		return urlToPath;
 	}
 
-	public String getUrlToAll() {
+	public String getHost() {
 		return urlToAll;
 	}
 
@@ -84,10 +84,6 @@ public class RestServiceClient implements IRestServiceClient {
 		return this.resp;
 	}
 
-	@Override
-	public String getHost() {
-		return urlToAll;
-	}
 
 
 }

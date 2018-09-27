@@ -20,7 +20,7 @@ public class GUIpanel extends AbstractGUIPanel {
 	private int offsetY;
 	private int distance;
 	public static final Color DARKGREEN = Color.decode("#0e7810");
-
+	
 	public GUIpanel(int maxSize) {
 		setSizes(maxSize);
 		this.distance = (int) (8 * Math.sqrt(maxSize));
@@ -181,22 +181,22 @@ public class GUIpanel extends AbstractGUIPanel {
 		return grid.clone();
 	}
 
-	@Override
+	
 	public String[][] getGridNames() {
 		return gridNames;
 	}
 
-	@Override
+	
 	public Color[][] getGridColor() {
 		return gridColor;
 	}
 
-	@Override
+	
 	public int gridSize() {
 		return gridSize;
 	}
 
-	@Override
+	
 	public Point[][] getGrid() {
 		return grid;
 	}
