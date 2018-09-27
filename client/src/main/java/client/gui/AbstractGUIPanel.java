@@ -34,6 +34,17 @@ public abstract class AbstractGUIPanel extends JPanel{
 		g.setFont(g.getFont().deriveFont(Font.BOLD));
 		g.drawString(gridNames[i][j], (int) grid[i][j].getX() + 8 / 2, (int) grid[i][j].getY() - 8 / 2);
 	}
+	public void enablePoint(String string, int i, int j, Graphics g2) {
+		enablePointProcedure(string, i, j, Color.RED);
+		paintComponent(g2);
+	}
+
+	public void enableNotHighlightablePoint(String string, int i, int j, Graphics g2) {
+		enablePointProcedure(string, i, j, Color.BLACK);
+		paintComponent(g2);
+	}
+	
+	protected abstract void enablePointProcedure(String s, int i, int j, Color col);
 	
 	public abstract String[][] getGridNames();
 

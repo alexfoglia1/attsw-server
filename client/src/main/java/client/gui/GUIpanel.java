@@ -2,7 +2,6 @@ package client.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Point;
 import java.util.List;
 
@@ -99,7 +98,7 @@ public class GUIpanel extends AbstractGUIPanel {
 		repaint();
 	}
 
-	private void enablePointProcedure(String toPrintInPoint, int i, int j, Color col) {
+	protected void enablePointProcedure(String toPrintInPoint, int i, int j, Color col) {
 		gridNames[i][j] = toPrintInPoint;
 		gridColor[i][j] = (col);
 	}
@@ -165,16 +164,6 @@ public class GUIpanel extends AbstractGUIPanel {
 
 	public int getDistance() {
 		return distance;
-	}
-
-	public void enablePoint(String string, int i, int j, Graphics g2) {
-		enablePointProcedure(string, i, j, Color.RED);
-		paintComponent(g2);
-	}
-
-	public void enableNotHighlightablePoint(String string, int i, int j, Graphics g2) {
-		enablePointProcedure(string, i, j, Color.BLACK);
-		paintComponent(g2);
 	}
 
 	public Point[][] getAllLocations() {
