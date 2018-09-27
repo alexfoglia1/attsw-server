@@ -52,7 +52,7 @@ public class GUIpanelTest {
 			for(int j=0; j<GRIDSIZE;j++) {
 				Point pexpected=new Point(pan.getOffsetX()+i*pan.getDistance(),pan.getOffsetY()+j*pan.getDistance());
 				assertEquals(pexpected,pan.getLocationOf(j, i));
-				assertEquals(pexpected,grid[i][j]);
+				assertEquals(pexpected,grid[j][i]);
 				assertEquals("",names[i][j]);
 				assertEquals("",pan.getPrintedNameIn(i, j));
 				assertEquals(expectedcol,cols[i][j]);
