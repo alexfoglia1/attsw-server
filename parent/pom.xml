@@ -24,6 +24,9 @@
 		<jacoco.report.path>${project.reporting.outputDirectory}/jacoco.xml</jacoco.report.path>
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
+		<sonar.issue.ignore.multicriteria>e01</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria.e01.rulekey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e01.rulekey>
+		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/GUIpanel.*</sonar.issue.ignore.multicriteria.e11.resourceKey>
 		<sonar.coverage.exclusions>
 			**/ServerApplication.*,
 			**/DatabaseGrid.*,
@@ -35,9 +38,6 @@
 			**/App.*,
 			**/GUI.*
 		</sonar.coverage.exclusions>
-		<sonar.exclusions>
-			**/GUIpanel.*
-		</sonar.exclusions>
 	</properties>
 
 	<dependencies>
