@@ -25,7 +25,7 @@
 		<sonar.language>java</sonar.language>
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
 		<sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e11.rulekey>squid:S110</sonar.issue.ignore.multicriteria.e11.rulekey>
+		<sonar.issue.ignore.multicriteria.e11.rulekey>squid:S00110</sonar.issue.ignore.multicriteria.e11.rulekey>
 		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/GUIpanel.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
 		<sonar.coverage.exclusions>
 			**/ServerApplication.*,
