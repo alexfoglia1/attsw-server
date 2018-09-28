@@ -26,7 +26,7 @@
 		<sonar.jacoco.reportPaths>${jacoco.data.file}</sonar.jacoco.reportPaths>
 		<sonar.issue.ignore.multicriteria>e01</sonar.issue.ignore.multicriteria>
 		<sonar.issue.ignore.multicriteria.e01.rulekey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e01.rulekey>
-		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/GUIpanel.*</sonar.issue.ignore.multicriteria.e11.resourceKey>
+		<sonar.issue.ignore.multicriteria.e01.resourceKey>**/GUIpanel.*</sonar.issue.ignore.multicriteria.e01.resourceKey>
 		<sonar.coverage.exclusions>
 			**/ServerApplication.*,
 			**/DatabaseGrid.*,
