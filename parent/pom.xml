@@ -34,6 +34,9 @@
 			**/BrowserEnd2EndStepsDefinition.*,
 			**/App.*
 		</sonar.coverage.exclusions>
+		<sonar.exclusions>
+			**/GUIpanel.*
+		</sonar.exclusions>
 	</properties>
 
 	<dependencies>
