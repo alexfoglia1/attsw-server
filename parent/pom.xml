@@ -32,7 +32,8 @@
 			**/WebSecurityConfig.*,
 			**/MyRuntimeException.*,
 			**/BrowserEnd2EndStepsDefinition.*,
-			**/App.*
+			**/App.*,
+			**/GUI.*
 		</sonar.coverage.exclusions>
 		<sonar.exclusions>
 			**/GUIpanel.*
