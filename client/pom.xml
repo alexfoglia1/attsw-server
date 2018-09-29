@@ -8,7 +8,12 @@
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<artifactId>client</artifactId>
-
+	<properties>
+		<sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
+		 <!-- since we extend Swing it's normal to have a deep inheritance -->
+		<sonar.issue.ignore.multicriteria.e11.rulekey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e11.rulekey>
+		<sonar.issue.ignore.multicriteria.e11.resourceKey>/**/GUIpanel.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
+	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
 		<!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock -->
