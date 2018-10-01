@@ -35,10 +35,11 @@
 			**/App.*,
 			**/GUI.*
 		</sonar.coverage.exclusions>
-		<sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
+		<sonar.issue.ignore.multicriteria>e01</sonar.issue.ignore.multicriteria>
 		<!-- since we extend Swing it's normal to have a deep inheritance -->
-		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/GUIpanel.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
-		<sonar.issue.ignore.multicriteria.e11.rulekey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e11.rulekey>
+		<sonar.issue.ignore.multicriteria.e01.rulekey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e01.rulekey>
+		<sonar.issue.ignore.multicriteria.e01.resourceKey>**/GUIpanel.java,**/GUIpanel.*</sonar.issue.ignore.multicriteria.e01.resourceKey>
+		
 	</properties>
 
 	<dependencies>
