@@ -18,11 +18,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- For each rule to be ignore, add another eXX and two corresponding 
-			properties with eXX in the name as below -->
-		<sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
-		<sonar.issue.ignore.multicriteria.e11.ruleKey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e11.ruleKey>
-		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/*.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jacoco.data.file>${project.build.directory}/jacoco.exec</jacoco.data.file>
@@ -40,8 +35,10 @@
 			**/App.*,
 			**/GUI.*
 		</sonar.coverage.exclusions>
-		
-		
+		<sonar.issue.ignore.multicriteria>e11</sonar.issue.ignore.multicriteria>
+		<!-- Since we extend Swing it is normal to have a deep inheritance -->
+		<sonar.issue.ignore.multicriteria.e11.ruleKey>squid:MaximumInheritanceDepth</sonar.issue.ignore.multicriteria.e11.ruleKey>
+		<sonar.issue.ignore.multicriteria.e11.resourceKey>**/GUIpanel.java</sonar.issue.ignore.multicriteria.e11.resourceKey>
 	</properties>
 
 	<dependencies>
